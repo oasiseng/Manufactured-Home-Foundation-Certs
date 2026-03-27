@@ -230,17 +230,22 @@ function CrawlSpaceDiagram() {
       <line x1="112" y1="268" x2="588" y2="268" stroke={COLORS.vapor} strokeWidth="3" strokeDasharray="8,3" />
 
       {/* === HOME FLOOR SYSTEM === */}
-      <rect x="78" y="90" width="544" height="34" fill="#DDD" stroke="#999" strokeWidth="1" rx="2" />
-      <text x="350" y="112" textAnchor="middle" fill={COLORS.textLight} fontSize="11" fontFamily="system-ui">MANUFACTURED HOME FLOOR SYSTEM</text>
+      {/* Raised 4px to show relief gap above sill plate — gravity loads go through I-beams */}
+      <rect x="78" y="86" width="544" height="34" fill="#DDD" stroke="#999" strokeWidth="1" rx="2" />
+      <text x="350" y="108" textAnchor="middle" fill={COLORS.textLight} fontSize="11" fontFamily="system-ui">MANUFACTURED HOME FLOOR SYSTEM</text>
+
+      {/* Relief gap indicator */}
+      <line x1="114" y1="122" x2="78" y2="122" stroke={COLORS.accent} strokeWidth="0.8" strokeDasharray="2,2" />
+      <text x="76" y="122" textAnchor="end" fill={COLORS.accent} fontSize="8" fontFamily="system-ui">gap</text>
 
       {/* === INTERIOR PIERS === */}
-      {/* I-beams */}
-      <rect x="220" y="124" width="6" height="40" fill={COLORS.steel} />
-      <rect x="216" y="122" width="14" height="4" fill={COLORS.steel} rx="1" />
+      {/* I-beams — start from bottom of floor system (y=120), bridge the gap */}
+      <rect x="220" y="120" width="6" height="44" fill={COLORS.steel} />
+      <rect x="216" y="118" width="14" height="4" fill={COLORS.steel} rx="1" />
       <rect x="216" y="162" width="14" height="3" fill={COLORS.steel} rx="1" />
 
-      <rect x="474" y="124" width="6" height="40" fill={COLORS.steel} />
-      <rect x="470" y="122" width="14" height="4" fill={COLORS.steel} rx="1" />
+      <rect x="474" y="120" width="6" height="44" fill={COLORS.steel} />
+      <rect x="470" y="118" width="14" height="4" fill={COLORS.steel} rx="1" />
       <rect x="470" y="162" width="14" height="3" fill={COLORS.steel} rx="1" />
 
       {/* Interior wood posts */}
@@ -462,14 +467,19 @@ function BasementDiagram() {
       </text>
 
       {/* === HOME FLOOR SYSTEM === */}
-      <rect x="68" y="65" width="564" height="32" fill="#DDD" stroke="#999" strokeWidth="1" rx="2" />
-      <text x="350" y="86" textAnchor="middle" fill={COLORS.textLight} fontSize="11" fontFamily="system-ui">MANUFACTURED HOME FLOOR SYSTEM</text>
+      {/* Raised 5px to show relief gap above wall top — gravity loads go through I-beams/lally columns */}
+      <rect x="68" y="60" width="564" height="32" fill="#DDD" stroke="#999" strokeWidth="1" rx="2" />
+      <text x="350" y="81" textAnchor="middle" fill={COLORS.textLight} fontSize="11" fontFamily="system-ui">MANUFACTURED HOME FLOOR SYSTEM</text>
 
-      {/* Anchor bolts at top of walls */}
-      <rect x="82" y="90" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
-      <rect x="95" y="90" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
-      <rect x="602" y="90" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
-      <rect x="615" y="90" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
+      {/* Relief gap indicator */}
+      <line x1="107" y1="94" x2="68" y2="94" stroke={COLORS.accent} strokeWidth="0.8" strokeDasharray="2,2" />
+      <text x="66" y="94" textAnchor="end" fill={COLORS.accent} fontSize="8" fontFamily="system-ui">gap</text>
+
+      {/* Anchor bolts at top of walls — lateral/uplift tie spans the gap */}
+      <rect x="82" y="88" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
+      <rect x="95" y="88" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
+      <rect x="602" y="88" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
+      <rect x="615" y="88" width="3" height="12" fill={COLORS.steelDark} rx="0.5" />
 
       {/* === INTERIOR SUPPORT COLUMNS === */}
       {/* Lally column left */}

@@ -47,7 +47,7 @@ Stand back and look at the base of the home from each side. Ask yourself these q
 - Straps are loose, rusted through, or disconnected
 - Pads are cracked or sinking into the soil
 - Standing water under the home
-- Single-stack concrete block piers taller than 36 inches (should be double-stacked). Double-stack piers over 67 inches must also be grouted and reinforced with rebar per 24 CFR 3285.303(d)(2)
+- Single-stack concrete block piers taller than 36 inches (should be double-stacked). Piers over 67 inches require engineering per HUD code (24 CFR 3285.303(d)(1)(iv)); the FHA PFGMH allows prescriptive grouted/reinforced piers up to 80 inches as an alternative
 - No pads under piers — blocks sitting directly on bare soil
 - The home is visibly unlevel (doors don't close, floors slope)
 
