@@ -290,9 +290,15 @@ function CrawlSpaceDiagram() {
         Frost depth
       </text>
 
+      {/* Load path note */}
+      <rect x="115" y="315" width="470" height="22" fill="#EBF8FF" stroke="#90CDF4" strokeWidth="1" rx="5" />
+      <text x="350" y="330" textAnchor="middle" fill="#2B6CB0" fontSize="9" fontWeight="500" fontFamily="system-ui">
+        Note: Gravity loads flow through I-beams to interior piers. Perimeter wall provides lateral/uplift resistance and enclosure.
+      </text>
+
       {/* Qualifies callout */}
-      <rect x="200" y="340" width="300" height="28" fill="#C6F6D5" stroke={COLORS.pass} strokeWidth="1.5" rx="6" />
-      <text x="350" y="359" textAnchor="middle" fill={COLORS.pass} fontSize="11" fontWeight="600" fontFamily="system-ui">
+      <rect x="200" y="345" width="300" height="28" fill="#C6F6D5" stroke={COLORS.pass} strokeWidth="1.5" rx="6" />
+      <text x="350" y="364" textAnchor="middle" fill={COLORS.pass} fontSize="11" fontWeight="600" fontFamily="system-ui">
         Generally qualifies as a permanent foundation (FHA)
       </text>
     </svg>
@@ -349,6 +355,19 @@ function SlabOnGradeDiagram() {
       {/* === HOME STRUCTURE === */}
       <rect x="78" y="95" width="544" height="34" fill="#DDD" stroke="#999" strokeWidth="1" rx="2" />
       <text x="350" y="117" textAnchor="middle" fill={COLORS.textLight} fontSize="11" fontFamily="system-ui">MANUFACTURED HOME FLOOR SYSTEM</text>
+
+      {/* === CHASSIS I-BEAMS ON SLAB === */}
+      {/* Left I-beam */}
+      <rect x="175" y="129" width="14" height="3" fill={COLORS.steel} rx="1" />
+      <rect x="179" y="129" width="6" height="12" fill={COLORS.steel} />
+      <rect x="175" y="139" width="14" height="3" fill={COLORS.steelDark} rx="1" />
+      {/* Right I-beam */}
+      <rect x="500" y="129" width="14" height="3" fill={COLORS.steel} rx="1" />
+      <rect x="504" y="129" width="6" height="12" fill={COLORS.steel} />
+      <rect x="500" y="139" width="14" height="3" fill={COLORS.steelDark} rx="1" />
+
+      {/* I-beam label */}
+      <DiagramLabel x={280} y={138} text="Chassis I-beams on slab" anchor="start" lineToX={192} lineToY={138} />
 
       {/* === GRADE SLOPES === */}
       <line x1="30" y1="161" x2="58" y2="155" stroke={COLORS.groundDark} strokeWidth="2" />
@@ -463,9 +482,15 @@ function BasementDiagram() {
       <rect x="446" y="97" width="20" height="6" fill={COLORS.steelDark} rx="1" />
       <rect x="446" y="332" width="20" height="6" fill={COLORS.steelDark} rx="1" />
 
-      {/* I-beams above columns */}
-      <rect x="232" y="97" width="6" height="0" fill={COLORS.steel} />
-      <rect x="448" y="97" width="6" height="0" fill={COLORS.steel} />
+      {/* Chassis I-beams resting on lally column caps */}
+      {/* Left I-beam */}
+      <rect x="228" y="97" width="14" height="3" fill={COLORS.steel} rx="1" />
+      <rect x="232" y="97" width="6" height="30" fill={COLORS.steel} />
+      <rect x="228" y="127" width="14" height="3" fill={COLORS.steelDark} rx="1" />
+      {/* Right I-beam */}
+      <rect x="444" y="97" width="14" height="3" fill={COLORS.steel} rx="1" />
+      <rect x="448" y="97" width="6" height="30" fill={COLORS.steel} />
+      <rect x="444" y="127" width="14" height="3" fill={COLORS.steelDark} rx="1" />
 
       {/* === WINDOW WELL (exterior) === */}
       <rect x="38" y="140" width="32" height="30" fill={COLORS.air} stroke={COLORS.concreteDark} strokeWidth="1" rx="2" />

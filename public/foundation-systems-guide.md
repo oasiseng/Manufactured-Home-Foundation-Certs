@@ -28,7 +28,7 @@ This is the most common foundation type for manufactured homes in the United Sta
 - Steel straps wrapped over the I-beams and connected down to ground anchors (auger-type devices screwed into the soil). These resist wind uplift.
 - For multi-section (double-wide) homes, additional piers along the marriage line (where the two halves meet) and possibly along perimeter walls.
 
-**Pier types you will see.** The most common pier types are hollow-core concrete masonry blocks (CMU) stacked vertically, and pyramid-shaped steel jack stands with an adjustable rod at the top. Single-stack block piers should not exceed 36 inches in height. Block piers over 36 inches and up to 80 inches must be double-stacked (two blocks side by side in an interlocking pattern). Piers over 80 inches require engineering design. You may also see pressure-treated wood posts or manufactured metal/concrete piers that are listed and labeled for specific load capacities.
+**Pier types you will see.** The most common pier types are hollow-core concrete masonry blocks (CMU) stacked vertically, and pyramid-shaped steel jack stands with an adjustable rod at the top. Single-stack block piers should not exceed 36 inches in height. Block piers over 36 inches and up to 67 inches must be double-stacked (two blocks side by side in an interlocking pattern). Block piers between 67 inches and 80 inches must be double-stacked AND have their hollow cells filled with concrete or grout and reinforced with steel rebar, or be designed by a licensed engineer (24 CFR 3285.303(d)(2)). Piers over 80 inches require site-specific engineering design. You may also see pressure-treated wood posts or manufactured metal/concrete piers that are listed and labeled for specific load capacities.
 
 **Anchor types you will see.** The standard anchor is an auger-type (screw-in) ground anchor — a steel shaft with a helix plate at the bottom, screwed into the soil. Steel straps connect the anchor head to the home's I-beams. In Wind Zones II and III (Gulf Coast, Atlantic Coast, Hawaii), you will also see vertical straps from the sidewall of the home down to ground anchors, in addition to the diagonal straps from the I-beams. Stabilizer plates at the anchor head reduce movement. The spacing of anchors and straps is dictated by the home manufacturer's installation instructions and the wind zone.
 
@@ -37,7 +37,7 @@ This is the most common foundation type for manufactured homes in the United Sta
 **What an inspector must verify for this type:**
 
 - Pier material: concrete block, steel jack stands, treated wood, or manufactured piers — and whether piers are listed/labeled if manufactured
-- Pier height: single-stack block piers should be 36 inches or less; double-stack required above 36 inches; engineering required above 80 inches
+- Pier height: single-stack block piers should be 36 inches or less; double-stack required above 36 inches; piers 67–80 inches must also be grouted and reinforced with rebar (or engineered) per 24 CFR 3285.303(d)(2); engineering required above 80 inches
 - Pier spacing: typically 4 to 10 feet on center, must be consistent with manufacturer installation instructions and 24 CFR 3285.303 Table 1, 2, or 3
 - Pier condition: plumb, no visible tilt, rotation, cracking, or displacement
 - Footing presence and material: pads or footers under each pier, adequate size for soil bearing capacity (minimum 1,500 psf default per 24 CFR 3285.202)
@@ -68,7 +68,7 @@ Crawl space foundations are designed for real-property classification. They use 
 - Ventilation openings in the perimeter walls
 - Footing at the base of the perimeter wall, extending below the local frost depth
 
-**Key difference from pier-and-anchor systems.** The home is mechanically fastened to the perimeter wall (bolted, nailed with approved nailing strips, or welded). The perimeter wall itself is the structural and lateral load path — no separate ground anchors are needed. The wall resists uplift, overturning, and sliding through its attachment to the footing and the weight of the soil and structure.
+**Key difference from pier-and-anchor systems.** The home is mechanically fastened to the perimeter wall (bolted through a sill plate, nailed with approved nailing strips, strapped from the chassis I-beams to wet-set concrete anchors in the wall/footing, or welded). The perimeter wall provides lateral/uplift resistance and enclosure — no separate ground anchors are needed. Gravity loads typically travel through the chassis I-beams to interior piers, not through the perimeter wall, unless a perimeter-bearing chassis is specifically designed for the installation. The wall resists uplift, overturning, and sliding through its attachment to the footing and the weight of the soil and structure.
 
 **Construction variations you will encounter.** The perimeter wall may be poured concrete, mortared and grouted concrete block, or a wood-framed pony wall on a concrete or block stem wall. Some designs use a combination — for example, a concrete stem wall below grade with a framed pony wall above. Interior supports range from economical treated wood posts to block columns to manufactured steel piers.
 
@@ -79,7 +79,7 @@ Crawl space foundations are designed for real-property classification. They use 
 - Perimeter wall material and construction: poured concrete, grouted CMU, pony wall on stem wall — and whether it is continuous around the full perimeter
 - Footing: present below the perimeter wall, below local frost depth, reinforced concrete
 - Wall-to-footing connection: adequate reinforcement, no visible cracking, displacement, or separation
-- Home-to-wall attachment: anchor bolts, approved nailing strips, or equivalent mechanical fastening — confirm that the home is structurally connected, not just resting on the wall
+- Home-to-wall attachment: anchor bolts through sill plate, approved nailing strips, embedded steel straps from the chassis I-beams to wet-set concrete anchors in the wall or footing, or equivalent mechanical fastening — confirm that the home is structurally connected, not just resting on the wall
 - Interior pier supports: material, spacing, condition, and footing under each interior pier
 - Wheels, axles, and towing hitch: must be removed for permanent foundation classification
 - Vapor barrier: 6-mil polyethylene on crawlspace floor
@@ -230,7 +230,7 @@ Regardless of which system is installed, several site and environmental conditio
 | Works in frost areas | Yes (footings below frost) | Yes (footings below frost) | Yes (FPSF or deep edge) | Yes (deep excavation) |
 | Works in seismic areas | Yes | Yes | Yes | Generally no (complex) |
 | Works in high-wind areas | Yes (additional straps) | Yes (perimeter wall resists) | Yes (slab anchorage) | Yes |
-| Wheels/axles/hitch removed | Not always required | Required | Required | Required |
+| Wheels/axles/hitch removed | Not required for temporary setup; **must be removed for FHA permanent foundation status** | Required | Required | Required |
 
 ---
 

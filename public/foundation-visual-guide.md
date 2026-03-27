@@ -32,7 +32,7 @@ The most common support system for manufactured homes. The home's steel chassis 
 
 ## 2. Crawl Space Foundation
 
-The home sits on a continuous structural perimeter wall (concrete or CMU) with reinforced footings below the frost line. The home is mechanically bolted to the wall through a sill plate. Interior support posts carry loads from the chassis I-beams down to individual footings.
+The home sits on a continuous structural perimeter wall (concrete or CMU) with reinforced footings below the frost line. The home is mechanically connected to the wall — typically through anchor bolts and a sill plate, though embedded steel straps from the chassis to wet-set concrete anchors are also common. Gravity loads travel through the chassis I-beams to interior support posts on individual footings; the perimeter wall provides lateral/uplift resistance and enclosure, not primary gravity support (unless a perimeter-bearing chassis is specified).
 
 ![Crawl Space Foundation — Cross Section](diagrams/crawl-space.svg)
 
@@ -46,7 +46,7 @@ The home sits on a continuous structural perimeter wall (concrete or CMU) with r
 
 ## 3. Slab-on-Grade Foundation
 
-The home sits directly on a poured concrete slab with no accessible space underneath. Anchor bolts are embedded in the concrete and mechanically connect the home's frame to the slab. The slab has turned-down footings at the perimeter that extend below grade.
+The home's steel chassis I-beams rest directly on a poured concrete slab (or on short blocking on the slab), with no accessible space underneath. Anchor bolts are embedded in the concrete and mechanically connect the chassis to the slab. The slab has turned-down footings at the perimeter that extend below grade.
 
 ![Slab-on-Grade Foundation — Cross Section](diagrams/slab-on-grade.svg)
 
@@ -60,7 +60,7 @@ The home sits directly on a poured concrete slab with no accessible space undern
 
 ## 4. Basement Foundation
 
-A full-height below-grade space with concrete or CMU walls extending from the footing to the home's floor system. The home is bolted to the top of the basement walls. Interior steel lally columns (concrete-filled steel pipes) provide intermediate support. A poured concrete floor slab covers the basement floor.
+A full-height below-grade space with concrete or CMU walls extending from the footing to the home's floor system. The home is bolted to the top of the basement walls. The steel chassis I-beams span between the walls and rest on interior steel lally columns (concrete-filled steel pipes) that provide intermediate support. A poured concrete floor slab covers the basement floor.
 
 ![Basement Foundation — Cross Section](diagrams/basement.svg)
 
@@ -81,7 +81,7 @@ A full-height below-grade space with concrete or CMU walls extending from the fo
 | Accessible underside | Yes | Yes (limited) | No | Yes (full height) |
 | Typical clearance | 24–48 in. | 18 in. – 3 ft | None | 7–8 ft |
 | FHA permanent status | Depends on anchorage | Generally qualifies | Generally qualifies | Generally qualifies |
-| Key inspection focus | Anchor type, pier condition, strap connections | Anchor bolts, wall integrity, frost depth | Slab edges, documentation | Wall condition, columns, moisture |
+| Key inspection focus | Anchor type, pier condition, strap connections | Anchor bolts/straps, wall integrity, frost depth | Slab edges, I-beam bearing, documentation | Wall condition, I-beams, columns, moisture |
 
 ---
 

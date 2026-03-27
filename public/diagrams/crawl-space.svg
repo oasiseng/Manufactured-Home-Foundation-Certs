@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="system-ui, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 450" font-family="system-ui, -apple-system, sans-serif">
   <defs>
     <pattern id="soil" patternUnits="userSpaceOnUse" width="20" height="20">
       <rect width="20" height="20" fill="#8B7355"/>
@@ -134,11 +134,15 @@
   <line x1="394" y1="292" x2="406" y2="292" stroke="#718096" stroke-width="1"/>
   <text x="408" y="220" fill="#718096" font-size="9" transform="rotate(90, 408, 220)">18 in. – 3 ft clearance</text>
 
+  <!-- ═══ LOAD PATH NOTE ═══ -->
+  <rect x="115" y="345" width="490" height="22" fill="#EBF8FF" stroke="#90CDF4" stroke-width="1" rx="5"/>
+  <text x="360" y="360" text-anchor="middle" fill="#2B6CB0" font-size="9" font-weight="500">Note: Gravity loads travel through I-beams to interior piers. Perimeter wall provides lateral/uplift resistance and enclosure.</text>
+
   <!-- ═══ KEY DISTINCTION BOX ═══ -->
-  <rect x="10" y="352" width="700" height="48" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5" rx="8"/>
-  <text x="360" y="370" text-anchor="middle" fill="#22543D" font-size="12" font-weight="700">✓  Generally qualifies as a permanent foundation (FHA)</text>
-  <text x="360" y="386" text-anchor="middle" fill="#2D3748" font-size="10">Key: home is bolted to perimeter wall  •  Reinforced footing below frost depth  •  Continuous perimeter enclosure</text>
+  <rect x="10" y="374" width="700" height="48" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5" rx="8"/>
+  <text x="360" y="392" text-anchor="middle" fill="#22543D" font-size="12" font-weight="700">✓  Generally qualifies as a permanent foundation (FHA)</text>
+  <text x="360" y="408" text-anchor="middle" fill="#2D3748" font-size="10">Key: home is bolted to perimeter wall  •  Reinforced footing below frost depth  •  Continuous perimeter enclosure</text>
 
   <!-- Credit -->
-  <text x="360" y="425" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
+  <text x="360" y="435" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
 </svg>
