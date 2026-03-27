@@ -1,0 +1,65 @@
+case_id: CASE-2026-003
+intake_date: 2026-03-26
+classification: standard_manufactured_home
+property:
+  address_label: SITE-PA-003
+  city: Red Bluff
+  state: PA
+  parcel_reference: PARCEL-EXAMPLE-003
+  flood_zone_flag: true
+  slope_flag: true
+contacts:
+  client_name: Example Owner
+  lender_name: Keystone Mortgage
+  appraiser_name: Example Valuation Services
+  internal_owner: Review Coordinator
+home:
+  manufacturer: Example Homes
+  model: Double Section 28x60
+  hud_label_present: true
+  install_year: 2019
+  movement_history_known: true
+evidence:
+  appraisal_report: present
+  lender_property_summary: not_applicable
+  exterior_photo_set: present
+  foundation_photo_set: present
+  crawlspace_or_underside_photo_set: missing
+  survey_or_site_plan: present
+  manufacturer_or_installer_documents: missing
+  manufacturer_foundation_package: not_applicable
+  module_configuration_summary: not_applicable
+  additions_scope_notes: present
+  underside_access_status: inaccessible
+review:
+  foundation_type_identification: unclear
+  anchorage_visibility: unclear
+  attached_accessory_present: true
+  addition_scope_affects_load_path: possible
+  visible_settlement_or_rotation: true
+  drainage_or_erosion_concern: true
+  flood_or_slope_concern: true
+  suspected_unsupported_fill: true
+  lender_requires_site_visit: false
+  ahj_requires_site_visit: false
+  notes:
+    - Photos suggest a sloped site with drainage concentration near supports.
+    - Support system is not visible enough to characterize remotely.
+dispatch:
+  outcome: site_tech_dispatch
+  rationale:
+    - Multiple site-condition red flags.
+    - Attached accessory scope may affect the load path.
+    - Underside evidence is missing and foundation type is unclear.
+  site_visit_priority: high
+  assigned_to: Field Services Coordinator
+deliverables:
+  requested:
+    - site_verification_report
+    - foundation_certification_letter
+  accessory_language_required: true
+  state_license_required: PA
+  final_letter_ready: false
+privacy:
+  sanitized_for_repo: true
+  source_materials_stored_outside_git: true

@@ -1,0 +1,63 @@
+case_id: CASE-2026-002
+intake_date: 2026-03-26
+classification: standard_manufactured_home
+property:
+  address_label: SITE-OR-002
+  city: Maple Crossing
+  state: OR
+  parcel_reference: PARCEL-EXAMPLE-002
+  flood_zone_flag: false
+  slope_flag: false
+contacts:
+  client_name: Example Applicant
+  lender_name: Northwest Lending
+  appraiser_name: Valley Appraisal
+  internal_owner: Intake Coordinator
+home:
+  manufacturer: Example Homes
+  model: Single Section 16x76
+  hud_label_present: true
+  install_year: 2022
+  movement_history_known: false
+evidence:
+  appraisal_report: present
+  lender_property_summary: not_applicable
+  exterior_photo_set: present
+  foundation_photo_set: present
+  crawlspace_or_underside_photo_set: missing
+  survey_or_site_plan: missing
+  manufacturer_or_installer_documents: missing
+  manufacturer_foundation_package: not_applicable
+  module_configuration_summary: not_applicable
+  additions_scope_notes: present
+  underside_access_status: inaccessible
+review:
+  foundation_type_identification: clear
+  anchorage_visibility: unclear
+  attached_accessory_present: false
+  addition_scope_affects_load_path: no
+  visible_settlement_or_rotation: false
+  drainage_or_erosion_concern: false
+  flood_or_slope_concern: false
+  suspected_unsupported_fill: false
+  lender_requires_site_visit: false
+  ahj_requires_site_visit: false
+  notes:
+    - Exterior conditions are generally clean.
+    - Underside support and anchorage are not documented.
+dispatch:
+  outcome: request_more_evidence
+  rationale:
+    - Package likely resolvable if underside photos can be obtained.
+    - Need clearer support and anchorage visibility before a final path is locked.
+  site_visit_priority: monitor
+  assigned_to: Processor Follow-Up
+deliverables:
+  requested:
+    - foundation_certification_letter
+  accessory_language_required: false
+  state_license_required: OR
+  final_letter_ready: false
+privacy:
+  sanitized_for_repo: true
+  source_materials_stored_outside_git: true

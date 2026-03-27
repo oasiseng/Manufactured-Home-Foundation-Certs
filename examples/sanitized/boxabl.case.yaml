@@ -1,0 +1,63 @@
+case_id: CASE-2026-005
+intake_date: 2026-03-26
+classification: boxabl
+property:
+  address_label: SITE-NV-005
+  city: Mesa Grove
+  state: NV
+  parcel_reference: PARCEL-EXAMPLE-005
+  flood_zone_flag: false
+  slope_flag: false
+contacts:
+  client_name: Example Developer
+  lender_name: Project Capital Group
+  appraiser_name: not_applicable
+  internal_owner: Boxabl Coordinator
+home:
+  manufacturer: Boxabl
+  model: Casita
+  hud_label_present: false
+  install_year: 2026
+  movement_history_known: false
+evidence:
+  appraisal_report: not_applicable
+  lender_property_summary: present
+  exterior_photo_set: present
+  foundation_photo_set: present
+  crawlspace_or_underside_photo_set: not_applicable
+  survey_or_site_plan: present
+  manufacturer_or_installer_documents: present
+  manufacturer_foundation_package: present
+  module_configuration_summary: present
+  additions_scope_notes: present
+  underside_access_status: not_applicable
+review:
+  foundation_type_identification: clear
+  anchorage_visibility: clear
+  attached_accessory_present: true
+  addition_scope_affects_load_path: no
+  visible_settlement_or_rotation: false
+  drainage_or_erosion_concern: false
+  flood_or_slope_concern: false
+  suspected_unsupported_fill: false
+  lender_requires_site_visit: false
+  ahj_requires_site_visit: false
+  notes:
+    - Manufacturer foundation package received.
+    - Exterior stair and landing scope identified separately from the foundation basis.
+dispatch:
+  outcome: remote_review
+  rationale:
+    - Product-specific package is complete enough for desk review.
+    - No field red flags are visible in the submitted materials.
+  site_visit_priority: not_applicable
+  assigned_to: Boxabl Reviewer
+deliverables:
+  requested:
+    - boxabl_foundation_guidance
+  accessory_language_required: true
+  state_license_required: NV
+  final_letter_ready: false
+privacy:
+  sanitized_for_repo: true
+  source_materials_stored_outside_git: true

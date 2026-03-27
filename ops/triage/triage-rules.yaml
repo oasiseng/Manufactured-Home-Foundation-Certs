@@ -1,0 +1,141 @@
+version: 1
+name: foundation-certification-triage
+outputs:
+  - remote_review
+  - request_more_evidence
+  - site_tech_dispatch
+
+defaults:
+  classification_values:
+    - standard_manufactured_home
+    - boxabl
+  required_evidence_status_values:
+    - present
+    - missing
+    - not_applicable
+  review_standard: conservative
+
+minimum_remote_package:
+  standard_manufactured_home:
+    required_any_of:
+      property_summary:
+        - appraisal_report
+        - lender_property_summary
+    required_all:
+      - exterior_photo_set
+      - foundation_photo_set
+      - additions_scope_notes
+    conditional_required:
+      crawlspace_or_underside_photo_set:
+        when: underside_access_exists_or_listing_indicates_crawlspace
+    preferred:
+      - survey_or_site_plan
+      - manufacturer_or_installer_documents
+      - data_plate_or_serial_photo
+  boxabl:
+    required_any_of:
+      property_summary:
+        - appraisal_report
+        - lender_property_summary
+    required_all:
+      - exterior_photo_set
+      - foundation_photo_set
+      - additions_scope_notes
+      - manufacturer_foundation_package
+      - module_configuration_summary
+    conditional_required:
+      crawlspace_or_underside_photo_set:
+        when: underside_access_exists
+    preferred:
+      - deck_and_stair_scope_notes
+      - utility_entry_summary
+      - site_plan_or_plot_plan
+
+decision_rules:
+  - id: incomplete_core_package
+    when:
+      any_missing:
+        - appraisal_report_or_lender_property_summary
+        - exterior_photo_set
+        - foundation_photo_set
+        - additions_scope_notes
+    output: request_more_evidence
+    rationale: Core remote review inputs are missing.
+
+  - id: missing_underside_visibility
+    when:
+      any:
+        - crawlspace_or_underside_photo_set == missing
+        - underside_access_status == inaccessible
+    output: site_tech_dispatch
+    rationale: Support and anchorage are not visible enough for conservative remote review.
+
+  - id: ambiguous_foundation_type
+    when:
+      any:
+        - foundation_type_identification == unclear
+        - anchorage_visibility == unclear
+    output: site_tech_dispatch
+    rationale: The foundation system itself is not clear from the package.
+
+  - id: accessory_load_path_unclear
+    when:
+      any:
+        - attached_accessory_present == true
+        - addition_scope_affects_load_path == possible
+    output: site_tech_dispatch
+    rationale: Attached improvements can invalidate a remote-only assumption.
+
+  - id: site_condition_red_flag
+    when:
+      any:
+        - visible_settlement_or_rotation == true
+        - drainage_or_erosion_concern == true
+        - flood_or_slope_concern == true
+        - suspected_unsupported_fill == true
+    output: site_tech_dispatch
+    rationale: Site or support conditions need in-person verification.
+
+  - id: lender_or_ahj_site_visit_required
+    when:
+      any:
+        - lender_requires_site_visit == true
+        - ahj_requires_site_visit == true
+    output: site_tech_dispatch
+    rationale: Third-party requirements override a remote preference.
+
+  - id: boxabl_missing_product_documents
+    when:
+      all:
+        - classification == boxabl
+      any_missing:
+        - manufacturer_foundation_package
+        - module_configuration_summary
+    output: request_more_evidence
+    rationale: Product-specific documents are required before a defensible review.
+
+  - id: remote_review_allowed
+    when:
+      all:
+        - core_package_complete == true
+        - foundation_type_identification == clear
+        - anchorage_visibility != unclear
+        - visible_settlement_or_rotation != true
+        - drainage_or_erosion_concern != true
+        - flood_or_slope_concern != true
+        - lender_requires_site_visit != true
+        - ahj_requires_site_visit != true
+    output: remote_review
+    rationale: Evidence is complete enough for a conservative remote review.
+
+boxabl_overrides:
+  additional_review_points:
+    - module_configuration_matches_submitted_documents
+    - foundation_system_matches_manufacturer_basis
+    - stairs_decks_landings_scope_clearly_identified
+    - utility_penetrations_and_service_clearances_noted
+  automatic_site_tech_triggers:
+    - module_configuration_unclear
+    - custom_platform_or_podium_not_well_documented
+    - attached_deck_or_stair_system_load_path_unclear
+    - field_conditions_appear_inconsistent_with_manufacturer_basis

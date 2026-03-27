@@ -1,0 +1,148 @@
+schema_name: letter-fields.schema
+version: 1
+description: Placeholder inventory for the standardized manufactured-home foundation certification letter family.
+
+required_groups:
+  - lender_block
+  - property_block
+  - parties_block
+  - engineer_block
+  - inspection_block
+  - compliance_block
+  - foundation_block
+  - limitation_block
+  - signature_block
+
+groups:
+  lender_block:
+    required_fields:
+      - issue_date
+      - lender_name
+      - lender_address
+    optional_fields:
+      - lender_file_number
+  property_block:
+    required_fields:
+      - property_address
+    optional_fields:
+      - parcel_reference
+  parties_block:
+    optional_fields:
+      - owner_name
+      - borrower_name
+  engineer_block:
+    required_fields:
+      - engineer_name
+      - engineer_title
+      - engineer_license_state
+      - engineer_license_number
+      - evaluation_date
+  inspection_block:
+    required_fields:
+      - inspection_method
+      - review_scope
+  compliance_block:
+    required_fields:
+      - hud_reference
+      - pfgmh_reference
+      - compliance_conclusion
+  foundation_block:
+    required_fields:
+      - foundation_type_description
+      - durable_materials_statement
+      - load_transfer_statement
+      - site_suitability_statement
+    conditional_fields:
+      accessory_structures_reviewed:
+        include_when: accessory_language_required == true
+      movement_history_statement:
+        include_when: movement_history_known == true
+      transport_components_removed_statement:
+        include_when: transport_components_status_verified == true
+  limitation_block:
+    required_fields:
+      - hidden_footing_depth_limitation
+      - validity_period_statement
+  signature_block:
+    required_fields:
+      - signature_name
+      - signature_credentials
+
+field_definitions:
+  issue_date:
+    type: date
+  lender_name:
+    type: string
+  lender_address:
+    type: string
+  lender_file_number:
+    type: string
+  property_address:
+    type: string
+  parcel_reference:
+    type: string
+  owner_name:
+    type: string
+  borrower_name:
+    type: string
+  engineer_name:
+    type: string
+  engineer_title:
+    type: string
+  engineer_license_state:
+    type: string
+  engineer_license_number:
+    type: string
+  evaluation_date:
+    type: date
+  inspection_method:
+    type: string
+    default: non-invasive visual inspection
+  review_scope:
+    type: string
+  hud_reference:
+    type: string
+    default: HUD Handbook No. HUD-4930.3
+  pfgmh_reference:
+    type: string
+    default: Permanent Foundations Guide for Manufactured Housing
+  compliance_conclusion:
+    type: string
+  foundation_type_description:
+    type: string
+  durable_materials_statement:
+    type: string
+  load_transfer_statement:
+    type: string
+  site_suitability_statement:
+    type: string
+  accessory_structures_reviewed:
+    type: array
+    items:
+      type: string
+  movement_history_statement:
+    type: string
+  transport_components_removed_statement:
+    type: string
+  hidden_footing_depth_limitation:
+    type: string
+  validity_period_statement:
+    type: string
+  signature_name:
+    type: string
+  signature_credentials:
+    type: string
+
+template_controls:
+  accessory_language_required:
+    type: boolean
+    description: Toggle for porch, deck, carport, garage, or addition wording.
+  movement_history_known:
+    type: boolean
+    description: Toggle for movement-history clause.
+  transport_components_status_verified:
+    type: boolean
+    description: Toggle for wheels, axles, and hitch language.
+  state_specific_license_check:
+    type: string
+    description: License state that must match the property jurisdiction before release.

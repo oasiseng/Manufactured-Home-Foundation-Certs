@@ -1,0 +1,202 @@
+schema_name: case.schema
+version: 1
+description: Structured metadata for foundation certification intake, triage, and deliverable tracking.
+
+required:
+  - case_id
+  - classification
+  - property
+  - contacts
+  - evidence
+  - review
+  - dispatch
+  - deliverables
+
+enums:
+  classification:
+    - standard_manufactured_home
+    - boxabl
+  evidence_status:
+    - present
+    - missing
+    - not_applicable
+  triage_outcome:
+    - remote_review
+    - request_more_evidence
+    - site_tech_dispatch
+  deliverable_type:
+    - foundation_certification_letter
+    - site_verification_report
+    - boxabl_foundation_guidance
+    - scope_clarification_only
+
+fields:
+  case_id:
+    type: string
+    description: Internal unique case identifier.
+  intake_date:
+    type: date
+    description: Date the package was first received.
+  classification:
+    type: enum
+    values_ref: classification
+  property:
+    type: object
+    required:
+      - state
+      - city
+      - address_label
+    fields:
+      address_label:
+        type: string
+        description: Sanitized property identifier suitable for tracked files.
+      city:
+        type: string
+      state:
+        type: string
+      parcel_reference:
+        type: string
+        description: Optional sanitized or partial parcel label.
+      flood_zone_flag:
+        type: boolean
+      slope_flag:
+        type: boolean
+  contacts:
+    type: object
+    fields:
+      client_name:
+        type: string
+      lender_name:
+        type: string
+      appraiser_name:
+        type: string
+      internal_owner:
+        type: string
+  home:
+    type: object
+    fields:
+      manufacturer:
+        type: string
+      model:
+        type: string
+      hud_label_present:
+        type: boolean
+      install_year:
+        type: integer
+      movement_history_known:
+        type: boolean
+  evidence:
+    type: object
+    required:
+      - appraisal_report
+      - exterior_photo_set
+      - foundation_photo_set
+      - crawlspace_or_underside_photo_set
+      - additions_scope_notes
+    fields:
+      appraisal_report:
+        type: enum
+        values_ref: evidence_status
+      lender_property_summary:
+        type: enum
+        values_ref: evidence_status
+      exterior_photo_set:
+        type: enum
+        values_ref: evidence_status
+      foundation_photo_set:
+        type: enum
+        values_ref: evidence_status
+      crawlspace_or_underside_photo_set:
+        type: enum
+        values_ref: evidence_status
+      survey_or_site_plan:
+        type: enum
+        values_ref: evidence_status
+      manufacturer_or_installer_documents:
+        type: enum
+        values_ref: evidence_status
+      manufacturer_foundation_package:
+        type: enum
+        values_ref: evidence_status
+      module_configuration_summary:
+        type: enum
+        values_ref: evidence_status
+      additions_scope_notes:
+        type: enum
+        values_ref: evidence_status
+      underside_access_status:
+        type: string
+        description: Example values: accessible, partially_accessible, inaccessible.
+  review:
+    type: object
+    required:
+      - foundation_type_identification
+      - anchorage_visibility
+    fields:
+      foundation_type_identification:
+        type: string
+        description: Example values: clear, unclear.
+      anchorage_visibility:
+        type: string
+        description: Example values: clear, partial, unclear.
+      attached_accessory_present:
+        type: boolean
+      addition_scope_affects_load_path:
+        type: string
+        description: Example values: no, possible, yes.
+      visible_settlement_or_rotation:
+        type: boolean
+      drainage_or_erosion_concern:
+        type: boolean
+      flood_or_slope_concern:
+        type: boolean
+      suspected_unsupported_fill:
+        type: boolean
+      lender_requires_site_visit:
+        type: boolean
+      ahj_requires_site_visit:
+        type: boolean
+      notes:
+        type: array
+        items:
+          type: string
+  dispatch:
+    type: object
+    required:
+      - outcome
+      - rationale
+    fields:
+      outcome:
+        type: enum
+        values_ref: triage_outcome
+      rationale:
+        type: array
+        items:
+          type: string
+      site_visit_priority:
+        type: string
+      assigned_to:
+        type: string
+  deliverables:
+    type: object
+    required:
+      - requested
+    fields:
+      requested:
+        type: array
+        items:
+          type: enum
+          values_ref: deliverable_type
+      accessory_language_required:
+        type: boolean
+      state_license_required:
+        type: string
+      final_letter_ready:
+        type: boolean
+  privacy:
+    type: object
+    fields:
+      sanitized_for_repo:
+        type: boolean
+      source_materials_stored_outside_git:
+        type: boolean
