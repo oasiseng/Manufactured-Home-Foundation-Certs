@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <pattern id="soil" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#8B7355"/>
+      <circle cx="5" cy="5" r="1" fill="#6B5B45" opacity="0.5"/>
+      <circle cx="15" cy="15" r="1.5" fill="#6B5B45" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="720" height="36" fill="#38A169" rx="0"/>
+  <text x="360" y="24" text-anchor="middle" fill="#FFF" font-size="15" font-weight="700">SLAB-ON-GRADE FOUNDATION — Cross Section</text>
+
+  <!-- Sky -->
+  <rect x="0" y="36" width="720" height="144" fill="#E8F0F8"/>
+
+  <!-- Ground -->
+  <rect x="0" y="180" width="720" height="180" fill="url(#soil)"/>
+  <rect x="0" y="178" width="720" height="6" fill="#6B8E4A" rx="1"/>
+
+  <!-- Grade label -->
+  <text x="668" y="176" text-anchor="end" fill="#5A7D3A" font-size="11" font-weight="600">GRADE</text>
+
+  <!-- ═══ CONCRETE SLAB ═══ -->
+  <rect x="90" y="155" width="540" height="26" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="2"/>
+
+  <!-- ═══ TURNED-DOWN FOOTINGS ═══ -->
+  <path d="M90,155 L90,181 L65,181 L65,250 L115,250 L115,181 L90,181" fill="#B0B0B0" stroke="#909090" stroke-width="1.5"/>
+  <path d="M630,155 L630,181 L605,181 L605,250 L655,250 L655,181 L630,181" fill="#B0B0B0" stroke="#909090" stroke-width="1.5"/>
+
+  <!-- Rebar in slab -->
+  <line x1="115" y1="168" x2="605" y2="168" stroke="#E53E3E" stroke-width="1.5" stroke-dasharray="14,7"/>
+
+  <!-- Rebar in footings -->
+  <circle cx="80" cy="220" r="3" fill="#E53E3E"/>
+  <circle cx="100" cy="220" r="3" fill="#E53E3E"/>
+  <circle cx="80" cy="238" r="3" fill="#E53E3E"/>
+  <circle cx="100" cy="238" r="3" fill="#E53E3E"/>
+  <circle cx="620" cy="220" r="3" fill="#E53E3E"/>
+  <circle cx="640" cy="220" r="3" fill="#E53E3E"/>
+  <circle cx="620" cy="238" r="3" fill="#E53E3E"/>
+  <circle cx="640" cy="238" r="3" fill="#E53E3E"/>
+
+  <!-- ═══ VAPOR BARRIER UNDER SLAB ═══ -->
+  <line x1="65" y1="183" x2="655" y2="183" stroke="#6AAAD4" stroke-width="2.5" stroke-dasharray="8,3"/>
+
+  <!-- ═══ GRAVEL BASE ═══ -->
+  <rect x="65" y="186" width="590" height="14" fill="#9A9A8A" opacity="0.6" rx="1"/>
+  <!-- Gravel dots -->
+  <circle cx="80" cy="193" r="2.5" fill="#AAAAAA"/>
+  <circle cx="100" cy="190" r="3" fill="#999"/>
+  <circle cx="120" cy="194" r="2" fill="#AAA"/>
+  <circle cx="300" cy="191" r="2.5" fill="#999"/>
+  <circle cx="320" cy="194" r="3" fill="#AAA"/>
+  <circle cx="500" cy="192" r="2.5" fill="#999"/>
+  <circle cx="520" cy="189" r="2" fill="#AAA"/>
+  <circle cx="600" cy="193" r="2.5" fill="#999"/>
+  <circle cx="620" cy="190" r="3" fill="#AAA"/>
+
+  <!-- ═══ ANCHOR BOLTS ═══ -->
+  <g>
+    <rect x="138" y="143" width="4" height="20" fill="#3A5A7A" rx="0.5"/>
+    <rect x="133" y="140" width="14" height="5" fill="#3A5A7A" rx="1.5"/>
+  </g>
+  <g>
+    <rect x="258" y="143" width="4" height="20" fill="#3A5A7A" rx="0.5"/>
+    <rect x="253" y="140" width="14" height="5" fill="#3A5A7A" rx="1.5"/>
+  </g>
+  <g>
+    <rect x="378" y="143" width="4" height="20" fill="#3A5A7A" rx="0.5"/>
+    <rect x="373" y="140" width="14" height="5" fill="#3A5A7A" rx="1.5"/>
+  </g>
+  <g>
+    <rect x="498" y="143" width="4" height="20" fill="#3A5A7A" rx="0.5"/>
+    <rect x="493" y="140" width="14" height="5" fill="#3A5A7A" rx="1.5"/>
+  </g>
+  <g>
+    <rect x="578" y="143" width="4" height="20" fill="#3A5A7A" rx="0.5"/>
+    <rect x="573" y="140" width="14" height="5" fill="#3A5A7A" rx="1.5"/>
+  </g>
+
+  <!-- ═══ HOME STRUCTURE ═══ -->
+  <rect x="88" y="108" width="544" height="34" fill="#E0E0E0" stroke="#999" stroke-width="1.5" rx="3"/>
+  <text x="360" y="130" text-anchor="middle" fill="#718096" font-size="12">MANUFACTURED HOME FLOOR SYSTEM</text>
+
+  <!-- ═══ GRADE SLOPE ARROWS ═══ -->
+  <line x1="35" y1="181" x2="60" y2="174" stroke="#5A7D3A" stroke-width="2.5"/>
+  <polygon points="35,177 35,185 44,181" fill="#5A7D3A"/>
+  <line x1="660" y1="174" x2="685" y2="181" stroke="#5A7D3A" stroke-width="2.5"/>
+  <polygon points="685,177 685,185 676,181" fill="#5A7D3A"/>
+  <text x="28" y="174" text-anchor="end" fill="#5A7D3A" font-size="9" font-weight="500">Grade slopes</text>
+  <text x="28" y="185" text-anchor="end" fill="#5A7D3A" font-size="9" font-weight="500">away ½"/ft</text>
+
+  <!-- ═══ LABELS ═══ -->
+
+  <!-- Slab -->
+  <text x="360" y="172" text-anchor="middle" fill="#606060" font-size="11" font-weight="600">Concrete slab (4–6 in.)</text>
+
+  <!-- Turned-down footing -->
+  <line x1="64" y1="230" x2="38" y2="242" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="34" y="238" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Turned-down</text>
+  <text x="34" y="251" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">footing</text>
+
+  <!-- Anchor bolts -->
+  <line x1="142" y1="143" x2="172" y2="102" stroke="#3A5A7A" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="176" y="100" fill="#3A5A7A" font-size="11" font-weight="600">Anchor bolts embedded in slab</text>
+  <text x="176" y="113" fill="#718096" font-size="9">(home mechanically connected to concrete)</text>
+
+  <!-- Rebar -->
+  <text x="440" y="166" fill="#E53E3E" font-size="10" font-weight="500">— — Rebar</text>
+
+  <!-- Vapor barrier -->
+  <text x="360" y="198" text-anchor="middle" fill="#6AAAD4" font-size="10" font-weight="600">Vapor barrier under slab</text>
+
+  <!-- Gravel -->
+  <text x="360" y="210" text-anchor="middle" fill="#718096" font-size="9">Compacted gravel base</text>
+
+  <!-- Rebar in footing -->
+  <text x="34" y="265" text-anchor="end" fill="#E53E3E" font-size="9" font-weight="500">● = rebar</text>
+
+  <!-- ═══ WARNING BOX ═══ -->
+  <rect x="10" y="275" width="700" height="40" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5" rx="8"/>
+  <text x="360" y="293" text-anchor="middle" fill="#744210" font-size="11" font-weight="700">⚠  No accessible underside — inspection limited to perimeter and slab edges</text>
+  <text x="360" y="307" text-anchor="middle" fill="#744210" font-size="9">Construction documentation is especially valuable for slab-on-grade foundations</text>
+
+  <!-- ═══ QUALIFIES BOX ═══ -->
+  <rect x="160" y="330" width="400" height="30" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5" rx="8"/>
+  <text x="360" y="350" text-anchor="middle" fill="#22543D" font-size="12" font-weight="700">✓  Generally qualifies as a permanent foundation (FHA)</text>
+
+  <!-- Credit -->
+  <text x="360" y="385" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
+</svg>

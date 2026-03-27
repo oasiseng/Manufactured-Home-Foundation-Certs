@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <pattern id="soil" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#8B7355"/>
+      <circle cx="5" cy="5" r="1" fill="#6B5B45" opacity="0.5"/>
+      <circle cx="15" cy="15" r="1.5" fill="#6B5B45" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="720" height="36" fill="#38A169" rx="0"/>
+  <text x="360" y="24" text-anchor="middle" fill="#FFF" font-size="15" font-weight="700">BASEMENT FOUNDATION — Cross Section</text>
+
+  <!-- Sky -->
+  <rect x="0" y="36" width="720" height="102" fill="#E8F0F8"/>
+
+  <!-- Ground -->
+  <rect x="0" y="138" width="720" height="280" fill="url(#soil)"/>
+  <rect x="0" y="136" width="720" height="6" fill="#6B8E4A" rx="1"/>
+
+  <!-- Grade label -->
+  <text x="668" y="134" text-anchor="end" fill="#5A7D3A" font-size="11" font-weight="600">GRADE</text>
+
+  <!-- ═══ BASEMENT WALLS ═══ -->
+  <rect x="72" y="100" width="38" height="260" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="1"/>
+  <rect x="610" y="100" width="38" height="260" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="1"/>
+
+  <!-- ═══ FOOTINGS ═══ -->
+  <rect x="55" y="360" width="72" height="24" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="2"/>
+  <rect x="593" y="360" width="72" height="24" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="2"/>
+  <!-- Rebar -->
+  <circle cx="75" cy="372" r="3" fill="#E53E3E"/>
+  <circle cx="110" cy="372" r="3" fill="#E53E3E"/>
+  <circle cx="613" cy="372" r="3" fill="#E53E3E"/>
+  <circle cx="648" cy="372" r="3" fill="#E53E3E"/>
+
+  <!-- ═══ BASEMENT FLOOR SLAB ═══ -->
+  <rect x="110" y="348" width="500" height="14" fill="#B0B0B0" stroke="#909090" stroke-width="1" rx="2"/>
+
+  <!-- ═══ BASEMENT AIR SPACE ═══ -->
+  <rect x="110" y="108" width="500" height="240" fill="#E8F0F8" opacity="0.5"/>
+
+  <!-- ═══ HOME FLOOR SYSTEM ═══ -->
+  <rect x="70" y="68" width="580" height="34" fill="#E0E0E0" stroke="#999" stroke-width="1.5" rx="3"/>
+  <text x="360" y="90" text-anchor="middle" fill="#718096" font-size="12">MANUFACTURED HOME FLOOR SYSTEM</text>
+
+  <!-- ═══ ANCHOR BOLTS AT TOP OF WALLS ═══ -->
+  <rect x="84" y="94" width="3.5" height="16" fill="#3A5A7A" rx="0.5"/>
+  <rect x="80" y="91" width="11" height="5" fill="#3A5A7A" rx="1.5"/>
+  <rect x="100" y="94" width="3.5" height="16" fill="#3A5A7A" rx="0.5"/>
+  <rect x="96" y="91" width="11" height="5" fill="#3A5A7A" rx="1.5"/>
+
+  <rect x="616" y="94" width="3.5" height="16" fill="#3A5A7A" rx="0.5"/>
+  <rect x="612" y="91" width="11" height="5" fill="#3A5A7A" rx="1.5"/>
+  <rect x="632" y="94" width="3.5" height="16" fill="#3A5A7A" rx="0.5"/>
+  <rect x="628" y="91" width="11" height="5" fill="#3A5A7A" rx="1.5"/>
+
+  <!-- ═══ INTERIOR LALLY COLUMNS ═══ -->
+  <!-- Left column -->
+  <rect x="250" y="108" width="10" height="240" fill="#4A6A8A" stroke="#3A5A7A" stroke-width="1" rx="3"/>
+  <rect x="243" y="104" width="24" height="7" fill="#3A5A7A" rx="2"/>
+  <rect x="243" y="345" width="24" height="7" fill="#3A5A7A" rx="2"/>
+
+  <!-- Right column -->
+  <rect x="460" y="108" width="10" height="240" fill="#4A6A8A" stroke="#3A5A7A" stroke-width="1" rx="3"/>
+  <rect x="453" y="104" width="24" height="7" fill="#3A5A7A" rx="2"/>
+  <rect x="453" y="345" width="24" height="7" fill="#3A5A7A" rx="2"/>
+
+  <!-- ═══ WINDOW WELL ═══ -->
+  <path d="M38,160 L38,200 L70,200 L70,160" fill="none" stroke="#909090" stroke-width="2" rx="2"/>
+  <rect x="72" y="162" width="0" height="36" fill="none"/>
+  <!-- Window in wall -->
+  <rect x="74" y="165" width="34" height="32" fill="#B8D4E8" stroke="#909090" stroke-width="1" rx="2"/>
+
+  <!-- ═══ HEADROOM INDICATOR ═══ -->
+  <line x1="570" y1="108" x2="570" y2="348" stroke="#718096" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="564" y1="108" x2="576" y2="108" stroke="#718096" stroke-width="1"/>
+  <line x1="564" y1="348" x2="576" y2="348" stroke="#718096" stroke-width="1"/>
+  <text x="564" y="232" text-anchor="end" fill="#718096" font-size="10" font-weight="500" transform="rotate(-90, 564, 232)">7–8 ft headroom</text>
+
+  <!-- ═══ LABELS ═══ -->
+
+  <!-- Basement wall -->
+  <line x1="70" y1="240" x2="40" y2="240" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="36" y="232" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Basement</text>
+  <text x="36" y="245" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">wall</text>
+  <text x="36" y="258" text-anchor="end" fill="#718096" font-size="9">(concrete or CMU)</text>
+
+  <!-- Footing -->
+  <line x1="54" y1="372" x2="32" y2="385" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="28" y="383" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Reinforced</text>
+  <text x="28" y="396" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">footing</text>
+
+  <!-- Floor slab -->
+  <text x="360" y="344" text-anchor="middle" fill="#606060" font-size="11" font-weight="500">Basement floor slab (concrete)</text>
+
+  <!-- Anchor bolts -->
+  <line x1="108" y1="96" x2="148" y2="80" stroke="#3A5A7A" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="152" y="78" fill="#3A5A7A" font-size="11" font-weight="600">Anchor bolts</text>
+
+  <!-- Lally column -->
+  <line x1="262" y1="230" x2="300" y2="230" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="304" y="226" fill="#2D3748" font-size="11" font-weight="500">Steel lally column</text>
+  <text x="304" y="239" fill="#718096" font-size="9">(concrete-filled steel pipe)</text>
+
+  <!-- Window well -->
+  <line x1="38" y1="180" x2="18" y2="172" stroke="#718096" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="14" y="168" text-anchor="end" fill="#718096" font-size="10">Window</text>
+  <text x="14" y="180" text-anchor="end" fill="#718096" font-size="10">well</text>
+
+  <!-- Backfill -->
+  <text x="52" y="148" text-anchor="middle" fill="#8B7355" font-size="9" font-weight="500">Backfill</text>
+
+  <!-- Rebar -->
+  <text x="28" y="410" text-anchor="end" fill="#E53E3E" font-size="9" font-weight="500">● = rebar</text>
+
+  <!-- ═══ QUALIFIES BOX ═══ -->
+  <rect x="160" y="405" width="400" height="30" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5" rx="8"/>
+  <text x="360" y="425" text-anchor="middle" fill="#22543D" font-size="12" font-weight="700">✓  Qualifies as a permanent foundation (FHA)</text>
+
+  <!-- Credit -->
+  <text x="360" y="452" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
+</svg>

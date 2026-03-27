@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 580" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#718096"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="720" height="36" fill="#4A6A8A" rx="0"/>
+  <text x="360" y="24" text-anchor="middle" fill="#FFF" font-size="15" font-weight="700">HOW TO IDENTIFY THE FOUNDATION TYPE</text>
+
+  <!-- ═══ START ═══ -->
+  <rect x="260" y="50" width="200" height="36" fill="#4A6A8A" rx="8"/>
+  <text x="360" y="73" text-anchor="middle" fill="#FFF" font-size="12" font-weight="600">Stand outside the home</text>
+
+  <!-- Arrow down -->
+  <line x1="360" y1="86" x2="360" y2="105" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ═══ Q1: Gap visible? ═══ -->
+  <rect x="185" y="105" width="350" height="48" fill="#FFF" stroke="#E2E8F0" stroke-width="2" rx="8"/>
+  <text x="360" y="126" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="600">Can you see a gap between</text>
+  <text x="360" y="142" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="600">the home and the ground?</text>
+
+  <!-- YES branch (left) -->
+  <line x1="280" y1="153" x2="200" y2="180" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="225" y="168" fill="#38A169" font-size="11" font-weight="700">YES</text>
+
+  <!-- NO branch (right) -->
+  <line x1="440" y1="153" x2="540" y2="180" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="500" y="168" fill="#E53E3E" font-size="11" font-weight="700">NO</text>
+
+  <!-- ═══ Q2: Structural enclosure? ═══ -->
+  <rect x="30" y="180" width="330" height="48" fill="#FFF" stroke="#E2E8F0" stroke-width="2" rx="8"/>
+  <text x="195" y="201" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="600">Is the perimeter enclosure structural?</text>
+  <text x="195" y="217" text-anchor="middle" fill="#718096" font-size="10">(concrete, masonry, or framed wall on stem)</text>
+
+  <!-- YES = Crawl Space -->
+  <line x1="120" y1="228" x2="100" y2="260" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="95" y="248" fill="#38A169" font-size="11" font-weight="700">YES</text>
+  <rect x="20" y="260" width="180" height="40" fill="#38A169" rx="8"/>
+  <text x="110" y="285" text-anchor="middle" fill="#FFF" font-size="13" font-weight="700">CRAWL SPACE</text>
+
+  <!-- NO = Pier and Anchor -->
+  <line x1="280" y1="228" x2="290" y2="260" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="298" y="248" fill="#E53E3E" font-size="11" font-weight="700">NO</text>
+  <rect x="210" y="260" width="180" height="40" fill="#D69E2E" rx="8"/>
+  <text x="300" y="285" text-anchor="middle" fill="#FFF" font-size="13" font-weight="700">PIER AND ANCHOR</text>
+
+  <!-- ═══ Q3: On a slab? ═══ -->
+  <rect x="430" y="180" width="270" height="48" fill="#FFF" stroke="#E2E8F0" stroke-width="2" rx="8"/>
+  <text x="565" y="201" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="600">Does the home sit directly</text>
+  <text x="565" y="217" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="600">on a concrete slab?</text>
+
+  <!-- YES = Slab -->
+  <line x1="500" y1="228" x2="480" y2="260" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="475" y="248" fill="#38A169" font-size="11" font-weight="700">YES</text>
+  <rect x="400" y="260" width="180" height="40" fill="#38A169" rx="8"/>
+  <text x="490" y="285" text-anchor="middle" fill="#FFF" font-size="13" font-weight="700">SLAB-ON-GRADE</text>
+
+  <!-- NO = check for basement -->
+  <line x1="640" y1="228" x2="640" y2="270" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="652" y="252" fill="#E53E3E" font-size="11" font-weight="700">NO</text>
+
+  <!-- Q4: Full height space? -->
+  <rect x="590" y="270" width="120" height="48" fill="#FFF" stroke="#E2E8F0" stroke-width="2" rx="8"/>
+  <text x="650" y="290" text-anchor="middle" fill="#2D3748" font-size="10" font-weight="600">Full-height</text>
+  <text x="650" y="304" text-anchor="middle" fill="#2D3748" font-size="10" font-weight="600">space below?</text>
+
+  <!-- YES = Basement -->
+  <line x1="620" y1="318" x2="570" y2="340" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="580" y="332" fill="#38A169" font-size="10" font-weight="700">YES</text>
+  <rect x="480" y="340" width="150" height="36" fill="#38A169" rx="8"/>
+  <text x="555" y="363" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">BASEMENT</text>
+
+  <!-- NO = Proprietary/Unclear -->
+  <line x1="680" y1="318" x2="680" y2="340" stroke="#718096" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="692" y="332" fill="#E53E3E" font-size="10" font-weight="700">NO</text>
+  <rect x="640" y="340" width="70" height="36" fill="#718096" rx="8"/>
+  <text x="675" y="356" text-anchor="middle" fill="#FFF" font-size="9" font-weight="600">PROPRIETARY</text>
+  <text x="675" y="368" text-anchor="middle" fill="#FFF" font-size="9" font-weight="600">or UNCLEAR</text>
+
+  <!-- ═══ VERIFICATION TIPS ═══ -->
+
+  <!-- Crawl space verify -->
+  <rect x="20" y="312" width="180" height="50" fill="#E8F4FD" stroke="#4A6A8A" stroke-width="1" rx="6"/>
+  <text x="110" y="330" text-anchor="middle" fill="#4A6A8A" font-size="9" font-weight="700">VERIFY: Is the home bolted</text>
+  <text x="110" y="342" text-anchor="middle" fill="#4A6A8A" font-size="9" font-weight="700">to the perimeter wall?</text>
+  <text x="110" y="356" text-anchor="middle" fill="#4A6A8A" font-size="9">If NO → actually Pier + Anchor</text>
+
+  <!-- Pier verify -->
+  <rect x="210" y="312" width="180" height="50" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1" rx="6"/>
+  <text x="300" y="330" text-anchor="middle" fill="#744210" font-size="9" font-weight="700">CHECK: What type of</text>
+  <text x="300" y="342" text-anchor="middle" fill="#744210" font-size="9" font-weight="700">anchorage is present?</text>
+  <text x="300" y="356" text-anchor="middle" fill="#744210" font-size="9">Screw-in only ≠ permanent</text>
+
+  <!-- ═══ COMMON MISTAKE BOX ═══ -->
+  <rect x="20" y="385" width="370" height="62" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5" rx="8"/>
+  <text x="205" y="404" text-anchor="middle" fill="#E53E3E" font-size="11" font-weight="700">⚠  MOST COMMON MISTAKE</text>
+  <text x="205" y="420" text-anchor="middle" fill="#2D3748" font-size="10">Confusing masonry skirting with a structural perimeter wall.</text>
+  <text x="205" y="434" text-anchor="middle" fill="#2D3748" font-size="10">Look for anchor bolts connecting the home to the wall.</text>
+
+  <!-- ═══ LEGEND ═══ -->
+  <rect x="20" y="465" width="680" height="85" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="8"/>
+  <text x="360" y="486" text-anchor="middle" fill="#2D3748" font-size="12" font-weight="700">FHA PERMANENT FOUNDATION STATUS</text>
+
+  <rect x="60" y="500" width="16" height="16" fill="#38A169" rx="4"/>
+  <text x="82" y="513" fill="#2D3748" font-size="11">Generally qualifies</text>
+
+  <rect x="260" y="500" width="16" height="16" fill="#D69E2E" rx="4"/>
+  <text x="282" y="513" fill="#2D3748" font-size="11">Depends on anchorage + perimeter</text>
+
+  <rect x="540" y="500" width="16" height="16" fill="#718096" rx="4"/>
+  <text x="562" y="513" fill="#2D3748" font-size="11">Requires ID first</text>
+
+  <text x="360" y="540" text-anchor="middle" fill="#718096" font-size="10">Pier and block systems CAN qualify when they have rated anchorage, reinforced footings, and a perimeter enclosure</text>
+
+  <!-- Credit -->
+  <text x="360" y="570" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
+</svg>

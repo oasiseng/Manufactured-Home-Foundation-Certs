@@ -16,7 +16,7 @@ HUD and the PFGMH organize manufactured home foundations into four non-proprieta
 
 ### 1. Pier and anchor systems
 
-This is the most common foundation type for manufactured homes in the United States. It is also the one most likely to cause confusion during lending and certification, because in its basic form it generally does not qualify as a permanent foundation under the FHA definition.
+This is the most common foundation type for manufactured homes in the United States. It is also the one most likely to cause confusion during lending and certification, because whether it qualifies as a permanent foundation depends on the specific anchorage method and perimeter enclosure — not the piers themselves.
 
 **What it looks like from outside the home.** The home sits above grade on visible supports. You will typically see skirting (vinyl, metal, concrete block, or other material) enclosing the area between the bottom of the home and the ground. The skirting is not structural — it is weather protection and aesthetics. If skirting is removed or damaged, you can see underneath the home to the pier and anchor system directly.
 
@@ -32,7 +32,7 @@ This is the most common foundation type for manufactured homes in the United Sta
 
 **Anchor types you will see.** The standard anchor is an auger-type (screw-in) ground anchor — a steel shaft with a helix plate at the bottom, screwed into the soil. Steel straps connect the anchor head to the home's I-beams. In Wind Zones II and III (Gulf Coast, Atlantic Coast, Hawaii), you will also see vertical straps from the sidewall of the home down to ground anchors, in addition to the diagonal straps from the I-beams. Stabilizer plates at the anchor head reduce movement. The spacing of anchors and straps is dictated by the home manufacturer's installation instructions and the wind zone.
 
-**Real property classification.** In most cases, a standard pier and ground anchor system does NOT qualify as a permanent foundation under the FHA definition. The FHA definition requires durable materials (concrete, mortared masonry, or treated wood), site-built construction, rated anchorage capacity, reinforced concrete footings below frost depth, and a continuous perimeter enclosure wall. Screw-in soil anchors are specifically excluded from the permanent anchorage definition. However, if the pier system is enhanced — for example, by encasing the anchors in a concrete slab or adding a structural perimeter wall — it may qualify.
+**Real property classification.** Pier and block systems can qualify as permanent foundations when the installation meets the FHA/PFGMH criteria. The piers themselves — CMU blocks, concrete, treated wood — are durable materials and are not the issue. The critical questions are: (1) Is the anchorage rated and permanent? Screw-in soil anchors alone are specifically excluded from the permanent anchorage definition. Anchors embedded in concrete or other engineered connections can meet the requirement. (2) Are the footings reinforced concrete and below frost depth? (3) Is there a continuous perimeter enclosure wall separating the crawl space from the surrounding soil and keeping out vermin and water? Many pier and block installations are certified as permanent foundations when they include reinforced concrete footings, rated anchorage, and an appropriate perimeter enclosure. The determination depends on the specific installation, not on the foundation category alone.
 
 **What an inspector must verify for this type:**
 
@@ -195,7 +195,7 @@ The single most common question in manufactured home foundation certification is
 
 5. Rated anchorage capacity to prevent sliding due to wind or seismic forces, in both the transverse and longitudinal directions.
 
-In practical terms, this means pier-and-anchor systems in their basic form generally do not qualify. Crawl space, slab-on-grade, and basement foundations generally do qualify when properly designed and constructed. Proprietary systems qualify when they are listed and installed per manufacturer instructions.
+In practical terms, the determining factors are the anchorage method, footing design, and perimeter enclosure — not the foundation category name. Pier and block systems with rated anchorage (not screw-in anchors alone), reinforced concrete footings below frost depth, and a continuous perimeter enclosure wall can qualify. Systems relying solely on screw-in soil anchors for uplift resistance do not meet the permanent anchorage requirement. Crawl space, slab-on-grade, and basement foundations generally qualify when properly designed and constructed. Proprietary systems qualify when they are listed and installed per manufacturer instructions.
 
 ---
 
@@ -223,7 +223,7 @@ Regardless of which system is installed, several site and environmental conditio
 | --- | --- | --- | --- | --- |
 | Typical cost | Lowest ($) | Moderate ($$-$$$) | Moderate ($$-$$$) | Highest ($$$$) |
 | Installation time | Hours to 1 day | 3-8 days | 2-5 days | 1-2 weeks |
-| Real property (FHA permanent foundation) | Generally no (in basic form) | Generally yes | Generally yes | Yes |
+| Real property (FHA permanent foundation) | Depends on anchorage and perimeter | Generally yes | Generally yes | Yes |
 | Underside accessible for inspection | Yes (via skirting) | Yes (via crawlspace hatch) | No | Yes (full basement) |
 | Usable space below home | No | No (not habitable) | No | Yes |
 | Works in flood areas | Yes (with engineering) | Yes (with engineering) | Yes (with engineering) | No (excluded from NFIP) |

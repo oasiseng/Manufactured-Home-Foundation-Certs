@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <pattern id="soil" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#8B7355"/>
+      <circle cx="5" cy="5" r="1" fill="#6B5B45" opacity="0.5"/>
+      <circle cx="15" cy="15" r="1.5" fill="#6B5B45" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Title -->
+  <rect x="0" y="0" width="720" height="36" fill="#38A169" rx="0"/>
+  <text x="360" y="24" text-anchor="middle" fill="#FFF" font-size="15" font-weight="700">CRAWL SPACE FOUNDATION — Cross Section</text>
+
+  <!-- Sky -->
+  <rect x="0" y="36" width="720" height="130" fill="#E8F0F8"/>
+
+  <!-- Ground -->
+  <rect x="0" y="166" width="720" height="234" fill="url(#soil)"/>
+  <rect x="0" y="164" width="720" height="6" fill="#6B8E4A" rx="1"/>
+
+  <!-- Grade label -->
+  <text x="668" y="162" text-anchor="end" fill="#5A7D3A" font-size="11" font-weight="600">GRADE</text>
+
+  <!-- ═══ FOOTINGS (below frost line) ═══ -->
+  <rect x="68" y="310" width="56" height="22" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="2"/>
+  <rect x="596" y="310" width="56" height="22" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="2"/>
+  <!-- Rebar in footings -->
+  <circle cx="82" cy="321" r="3" fill="#E53E3E"/>
+  <circle cx="110" cy="321" r="3" fill="#E53E3E"/>
+  <circle cx="610" cy="321" r="3" fill="#E53E3E"/>
+  <circle cx="638" cy="321" r="3" fill="#E53E3E"/>
+
+  <!-- ═══ PERIMETER WALLS ═══ -->
+  <rect x="82" y="130" width="32" height="180" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="1"/>
+  <rect x="606" y="130" width="32" height="180" fill="#B0B0B0" stroke="#909090" stroke-width="1.5" rx="1"/>
+
+  <!-- Vent openings -->
+  <rect x="86" y="162" width="24" height="12" fill="#E8F0F8" stroke="#909090" stroke-width="0.8" rx="2"/>
+  <rect x="610" y="162" width="24" height="12" fill="#E8F0F8" stroke="#909090" stroke-width="0.8" rx="2"/>
+
+  <!-- ═══ CRAWL SPACE AIR ═══ -->
+  <rect x="114" y="142" width="492" height="162" fill="#E8F0F8" opacity="0.5"/>
+
+  <!-- ═══ SILL PLATE ═══ -->
+  <rect x="78" y="122" width="40" height="10" fill="#C4944A" stroke="#A47A3A" stroke-width="1" rx="1"/>
+  <rect x="602" y="122" width="40" height="10" fill="#C4944A" stroke="#A47A3A" stroke-width="1" rx="1"/>
+
+  <!-- ═══ ANCHOR BOLTS ═══ -->
+  <rect x="90" y="116" width="3.5" height="20" fill="#3A5A7A" rx="0.5"/>
+  <rect x="86" y="113" width="11" height="5" fill="#3A5A7A" rx="1"/>
+  <rect x="106" y="116" width="3.5" height="20" fill="#3A5A7A" rx="0.5"/>
+  <rect x="102" y="113" width="11" height="5" fill="#3A5A7A" rx="1"/>
+
+  <rect x="614" y="116" width="3.5" height="20" fill="#3A5A7A" rx="0.5"/>
+  <rect x="610" y="113" width="11" height="5" fill="#3A5A7A" rx="1"/>
+  <rect x="630" y="116" width="3.5" height="20" fill="#3A5A7A" rx="0.5"/>
+  <rect x="626" y="113" width="11" height="5" fill="#3A5A7A" rx="1"/>
+
+  <!-- ═══ HOME FLOOR SYSTEM ═══ -->
+  <rect x="76" y="88" width="568" height="34" fill="#E0E0E0" stroke="#999" stroke-width="1.5" rx="3"/>
+  <text x="360" y="110" text-anchor="middle" fill="#718096" font-size="12">MANUFACTURED HOME FLOOR SYSTEM</text>
+
+  <!-- ═══ CHASSIS I-BEAMS ═══ -->
+  <rect x="230" y="122" width="8" height="42" fill="#4A6A8A"/>
+  <rect x="225" y="120" width="18" height="4" fill="#4A6A8A" rx="1"/>
+  <rect x="225" y="162" width="18" height="4" fill="#4A6A8A" rx="1"/>
+
+  <rect x="482" y="122" width="8" height="42" fill="#4A6A8A"/>
+  <rect x="477" y="120" width="18" height="4" fill="#4A6A8A" rx="1"/>
+  <rect x="477" y="162" width="18" height="4" fill="#4A6A8A" rx="1"/>
+
+  <!-- ═══ INTERIOR SUPPORT POSTS ═══ -->
+  <rect x="229" y="166" width="12" height="126" fill="#C4944A" stroke="#A47A3A" stroke-width="1" rx="1"/>
+  <rect x="481" y="166" width="12" height="126" fill="#C4944A" stroke="#A47A3A" stroke-width="1" rx="1"/>
+
+  <!-- Interior footings -->
+  <rect x="219" y="292" width="32" height="10" fill="#B0B0B0" stroke="#909090" stroke-width="1" rx="2"/>
+  <rect x="471" y="292" width="32" height="10" fill="#B0B0B0" stroke="#909090" stroke-width="1" rx="2"/>
+
+  <!-- ═══ VAPOR BARRIER ═══ -->
+  <line x1="114" y1="300" x2="606" y2="300" stroke="#6AAAD4" stroke-width="3" stroke-dasharray="10,4"/>
+
+  <!-- ═══ FROST DEPTH INDICATOR ═══ -->
+  <line x1="670" y1="170" x2="670" y2="325" stroke="#D69E2E" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="664" y1="170" x2="676" y2="170" stroke="#D69E2E" stroke-width="1.5"/>
+  <line x1="664" y1="325" x2="676" y2="325" stroke="#D69E2E" stroke-width="1.5"/>
+  <text x="680" y="252" fill="#D69E2E" font-size="10" font-weight="600" transform="rotate(90, 680, 252)">FROST DEPTH</text>
+
+  <!-- ═══ LABELS ═══ -->
+
+  <!-- Perimeter wall -->
+  <line x1="80" y1="230" x2="48" y2="230" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="44" y="224" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Structural</text>
+  <text x="44" y="237" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">perimeter wall</text>
+  <text x="44" y="250" text-anchor="end" fill="#718096" font-size="9">(concrete or CMU)</text>
+
+  <!-- Footing -->
+  <line x1="68" y1="321" x2="40" y2="340" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="36" y="338" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Reinforced</text>
+  <text x="36" y="351" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">concrete footing</text>
+
+  <!-- Rebar -->
+  <text x="36" y="364" text-anchor="end" fill="#E53E3E" font-size="9" font-weight="500">● = rebar</text>
+
+  <!-- Anchor bolts -->
+  <line x1="105" y1="115" x2="146" y2="102" stroke="#3A5A7A" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="150" y="100" fill="#3A5A7A" font-size="11" font-weight="600">Anchor bolts</text>
+  <text x="150" y="113" fill="#718096" font-size="9">(home bolted to wall)</text>
+
+  <!-- Sill plate -->
+  <line x1="120" y1="128" x2="146" y2="134" stroke="#A47A3A" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="150" y="137" fill="#A47A3A" font-size="11" font-weight="500">Sill plate</text>
+
+  <!-- I-beam -->
+  <line x1="248" y1="146" x2="284" y2="146" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="288" y="149" fill="#2D3748" font-size="11" font-weight="500">Chassis I-beam</text>
+
+  <!-- Interior post -->
+  <line x1="243" y1="230" x2="284" y2="232" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="288" y="228" fill="#2D3748" font-size="11" font-weight="500">Interior support post</text>
+  <text x="288" y="241" fill="#718096" font-size="9">(treated wood, block, or steel)</text>
+
+  <!-- Vent -->
+  <line x1="636" y1="168" x2="658" y2="168" stroke="#718096" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="662" y="165" fill="#718096" font-size="10">Crawlspace</text>
+  <text x="662" y="177" fill="#718096" font-size="10">vent</text>
+
+  <!-- Vapor barrier -->
+  <text x="360" y="296" text-anchor="middle" fill="#6AAAD4" font-size="10" font-weight="600">Vapor barrier (6-mil poly)</text>
+
+  <!-- Clearance indicator -->
+  <line x1="400" y1="142" x2="400" y2="292" stroke="#718096" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="394" y1="142" x2="406" y2="142" stroke="#718096" stroke-width="1"/>
+  <line x1="394" y1="292" x2="406" y2="292" stroke="#718096" stroke-width="1"/>
+  <text x="408" y="220" fill="#718096" font-size="9" transform="rotate(90, 408, 220)">18 in. – 3 ft clearance</text>
+
+  <!-- ═══ KEY DISTINCTION BOX ═══ -->
+  <rect x="10" y="352" width="700" height="48" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5" rx="8"/>
+  <text x="360" y="370" text-anchor="middle" fill="#22543D" font-size="12" font-weight="700">✓  Generally qualifies as a permanent foundation (FHA)</text>
+  <text x="360" y="386" text-anchor="middle" fill="#2D3748" font-size="10">Key: home is bolted to perimeter wall  •  Reinforced footing below frost depth  •  Continuous perimeter enclosure</text>
+
+  <!-- Credit -->
+  <text x="360" y="425" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>
+</svg>
