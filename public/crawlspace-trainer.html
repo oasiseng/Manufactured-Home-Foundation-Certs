@@ -570,8 +570,6 @@ let touchMove = {x:0,y:0};
 
 const $ = id => document.getElementById(id);
 
-init();
-
 function init(){
   renderer = new THREE.WebGLRenderer({antialias:false, powerPreference:'high-performance'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
@@ -1241,6 +1239,8 @@ function tick(){
 
   renderer.render(scene, camera);
 }
+
+init();
 </script>
 </body>
 </html>
