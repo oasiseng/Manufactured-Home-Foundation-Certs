@@ -2,6 +2,11 @@
 
 This lane records where the repo's operational rules come from. It is not a replacement for the governing documents themselves.
 
+## Files in this lane
+
+- `external-links.md` — canonical URLs for the federal regulations, HUD guidance, FEMA resources, and related Oasis repos referenced throughout the repository
+- `source-map.md` — table tying each repo asset back to its source basis
+
 ## Local reference library in this workspace
 
 These source files currently exist locally and are intentionally not tracked by git:
@@ -21,4 +26,4 @@ These source files currently exist locally and are intentionally not tracked by 
 - Manufactured-home calculator repository: companion technical utility
 - Boxabl foundations guide repository: Boxabl-specific product lane
 
-Use `source-map.md` to understand how repo files relate back to these sources.
+Use `source-map.md` to understand how repo files relate back to these sources, and `external-links.md` for the canonical source URLs.

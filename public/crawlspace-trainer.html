@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Crawlspace Trainer — CMU Pier &amp; Tie-Down System</title>
+<style>
+  :root{
+    --bg:#14161A; --panel:#1C1F25; --panel2:#22262E; --line:#2E333D;
+    --amber:#FFB454; --amber-dim:#A8742F; --text:#D8DCE3; --muted:#8A919E;
+    --pass:#58C08A; --fail:#E25B4A; --info:#6FA8DC;
+    --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--sans)}
+  #app{position:fixed;inset:0}
+  canvas{display:block}
+
+  /* ============ TOP BAR ============ */
+  #topbar{
+    position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:10px;
+    padding:8px 12px;background:linear-gradient(180deg,rgba(20,22,26,.96),rgba(20,22,26,.78) 70%,transparent);
+    pointer-events:none;flex-wrap:wrap;
+  }
+  #topbar>*{pointer-events:auto}
+  .brand{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber);font-weight:700;white-space:nowrap}
+  .brand small{color:var(--muted);font-weight:400;letter-spacing:.08em}
+  .chiprow{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:11px;letter-spacing:.06em;border:1px solid var(--line);
+    background:var(--panel);color:var(--muted);padding:6px 10px;border-radius:4px;cursor:pointer;
+    transition:all .12s;user-select:none;
+  }
+  .chip:hover{border-color:var(--amber-dim);color:var(--text)}
+  .chip.on{background:#2A2317;border-color:var(--amber);color:var(--amber)}
+  .chip.danger.on{background:#2A1A17;border-color:var(--fail);color:var(--fail)}
+  .spacer{flex:1}
+
+  /* ============ HEADLAMP CALLOUT (signature element) ============ */
+  #callout{
+    position:fixed;z-index:15;pointer-events:none;display:none;
+    transform:translate(-50%,-130%);
+  }
+  #callout .tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:.05em;white-space:nowrap;
+    background:rgba(20,22,26,.92);border:1px solid var(--amber);color:var(--amber);
+    padding:4px 8px;border-radius:3px;box-shadow:0 0 14px rgba(255,180,84,.25);
+  }
+  #callout .stem{width:1px;height:18px;background:var(--amber);margin:0 auto}
+  #callout .dot{width:5px;height:5px;border-radius:50%;background:var(--amber);margin:0 auto;box-shadow:0 0 8px var(--amber)}
+  #callout.flagged .tag{border-color:var(--pass);color:var(--pass)}
+  #callout.flagged .stem,#callout.flagged .dot{background:var(--pass)}
+
+  /* ============ INFO CARD ============ */
+  #card{
+    position:fixed;right:12px;top:56px;z-index:25;width:min(330px,calc(100vw - 24px));
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;display:none;
+    max-height:calc(100vh - 140px);overflow-y:auto;
+  }
+  #card.show{display:block}
+  #card header{
+    padding:10px 12px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:8px;
+    position:sticky;top:0;background:var(--panel);
+  }
+  #card header .swatch{width:10px;height:10px;border-radius:2px;margin-top:4px;flex:none;background:var(--amber)}
+  #card header h3{font-size:14px;font-weight:700;letter-spacing:.02em;flex:1}
+  #card header .x{cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:2px 6px}
+  #card header .x:hover{color:var(--text)}
+  #card .body{padding:10px 12px;font-size:12.5px;line-height:1.55;color:var(--text)}
+  #card .role{color:var(--muted);margin-bottom:8px}
+  #card .sect{font-family:var(--mono);font-size:10px;letter-spacing:.12em;margin:10px 0 4px}
+  #card .sect.ok{color:var(--pass)} #card .sect.bad{color:var(--fail)}
+  #card ul{list-style:none}
+  #card li{padding:3px 0 3px 16px;position:relative}
+  #card li::before{content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:1px}
+  #card .ok-list li::before{background:var(--pass)}
+  #card .bad-list li::before{background:var(--fail)}
+  #card .ref{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+  #card .flagbtn{
+    display:none;width:100%;margin-top:10px;padding:8px;border-radius:4px;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;border:1px solid var(--fail);
+    background:#2A1A17;color:var(--fail);
+  }
+  #card.inspect .flagbtn{display:block}
+  #card .flagbtn:hover{filter:brightness(1.2)}
+  #card .flagbtn.flagged{border-color:var(--pass);background:#17241D;color:var(--pass)}
+
+  /* ============ INSPECT CHECKLIST ============ */
+  #checklist{
+    position:fixed;left:12px;top:56px;z-index:24;width:min(280px,calc(100vw - 24px));
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;display:none;
+  }
+  #checklist.show{display:block}
+  #checklist header{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+  #checklist header h3{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--fail);flex:1}
+  #score{font-family:var(--mono);font-size:11px;color:var(--amber)}
+  #checklist .body{padding:8px 12px;font-size:12px}
+  #checklist .hint{color:var(--muted);line-height:1.5;margin-bottom:6px}
+  #foundlist{list-style:none}
+  #foundlist li{padding:4px 0 4px 18px;position:relative;color:var(--pass)}
+  #foundlist li::before{content:'✓';position:absolute;left:0;color:var(--pass);font-weight:700}
+  #falseflags{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:6px}
+  #checklist .btns{display:flex;gap:6px;padding:0 12px 10px}
+  #checklist .btns .chip{flex:1;text-align:center}
+
+  /* ============ RESULTS BANNER ============ */
+  #results{
+    position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;
+    background:rgba(10,11,13,.78);backdrop-filter:blur(2px);
+  }
+  #results.show{display:flex}
+  #results .panel{
+    width:min(420px,calc(100vw - 32px));background:var(--panel);border:1px solid var(--amber);
+    border-radius:8px;padding:20px;box-shadow:0 0 40px rgba(255,180,84,.15);
+  }
+  #results h2{font-family:var(--mono);font-size:14px;letter-spacing:.14em;color:var(--amber);margin-bottom:10px}
+  #results .big{font-size:34px;font-weight:800;margin:6px 0 12px}
+  #results ul{list-style:none;font-size:12.5px;line-height:1.6;margin-bottom:14px}
+  #results li.missed{color:var(--fail)} #results li.got{color:var(--pass)}
+  #results li::before{margin-right:6px;font-weight:700}
+  #results li.got::before{content:'✓'} #results li.missed::before{content:'✗'}
+  #results .note{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:14px}
+
+  /* ============ HELP ============ */
+  #help{
+    position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+    background:rgba(10,11,13,.85);
+  }
+  #help.show{display:flex}
+  #help .panel{
+    width:min(520px,calc(100vw - 32px));max-height:calc(100vh - 60px);overflow-y:auto;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;
+  }
+  #help h2{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--amber);margin-bottom:4px}
+  #help .sub{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+  #help table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:14px}
+  #help td{padding:5px 8px 5px 0;vertical-align:top;line-height:1.45}
+  #help td:first-child{font-family:var(--mono);font-size:11px;color:var(--amber);white-space:nowrap;width:120px}
+  #help .modes{font-size:12.5px;line-height:1.6;margin-bottom:14px}
+  #help .modes b{color:var(--amber)}
+  #help .fine{font-size:10.5px;color:var(--muted);line-height:1.5;border-top:1px dashed var(--line);padding-top:10px}
+
+  /* ============ BOTTOM HUD ============ */
+  #bottomhud{
+    position:fixed;left:0;right:0;bottom:0;z-index:18;display:flex;align-items:flex-end;
+    justify-content:space-between;padding:10px 12px;pointer-events:none;
+    background:linear-gradient(0deg,rgba(20,22,26,.85),transparent);
+  }
+  #keys{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.05em;line-height:1.7}
+  #keys b{color:var(--amber);font-weight:600}
+  #compass{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-align:right;line-height:1.7}
+  #compass b{color:var(--text)}
+
+  /* ============ TOUCH CONTROLS ============ */
+  #joy{position:fixed;left:18px;bottom:64px;width:104px;height:104px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(28,31,37,.5);z-index:30;display:none;touch-action:none}
+  #joy .nub{position:absolute;left:50%;top:50%;width:42px;height:42px;border-radius:50%;
+    background:rgba(255,180,84,.35);border:1px solid var(--amber);transform:translate(-50%,-50%)}
+  body.touch #joy{display:block}
+  body.touch #keys{display:none}
+
+  /* vignette for headlamp feel */
+  #vig{position:fixed;inset:0;z-index:5;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 48%, transparent 42%, rgba(8,9,11,.55) 78%, rgba(5,6,7,.82) 100%)}
+
+  #loadscreen{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px}
+  #loadscreen .t{font-family:var(--mono);letter-spacing:.2em;color:var(--amber);font-size:13px}
+  #loadscreen .s{font-size:11px;color:var(--muted)}
+  @media (max-width:680px){ .brand small{display:none} #keys{display:none} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="vig"></div>
+
+<div id="loadscreen"><div class="t">CRAWLSPACE TRAINER</div><div class="s">loading scene…</div></div>
+
+<div id="topbar">
+  <div class="brand">CRAWLSPACE TRAINER <small>— CMU PIER · FOOTER · TIE-DOWN</small></div>
+  <div class="chiprow">
+    <div class="chip on" id="btnExplore">EXPLORE</div>
+    <div class="chip danger" id="btnInspect">INSPECT&nbsp;·&nbsp;FIND&nbsp;DEFICIENCIES</div>
+  </div>
+  <div class="spacer"></div>
+  <div class="chiprow">
+    <div class="chip" id="btnZone">WIND&nbsp;ZONE&nbsp;I</div>
+    <div class="chip" id="btnLabels">LABELS&nbsp;ON</div>
+    <div class="chip" id="btnReset">RESET</div>
+    <div class="chip" id="btnHelp">?</div>
+  </div>
+</div>
+
+<div id="callout"><div class="tag"></div><div class="stem"></div><div class="dot"></div></div>
+
+<div id="card">
+  <header><div class="swatch"></div><h3 id="cardTitle"></h3><div class="x" id="cardClose">×</div></header>
+  <div class="body">
+    <div class="role" id="cardRole"></div>
+    <div class="sect ok">PASS CRITERIA</div><ul class="ok-list" id="cardPass"></ul>
+    <div class="sect bad">COMMON DEFICIENCIES</div><ul class="bad-list" id="cardFail"></ul>
+    <div class="ref" id="cardRef"></div>
+    <button class="flagbtn" id="flagBtn">⚑ FLAG AS DEFICIENT</button>
+  </div>
+</div>
+
+<div id="checklist">
+  <header><h3>DEFICIENCY HUNT</h3><div id="score">0 / 0</div></header>
+  <div class="body">
+    <div class="hint">This install has hidden defects. Crawl it, click anything that looks wrong, and flag it. Slow sweep — check every pier, every strap, both ends.</div>
+    <ul id="foundlist"></ul>
+    <div id="falseflags"></div>
+  </div>
+  <div class="btns">
+    <div class="chip" id="btnReveal">REVEAL&nbsp;ANSWERS</div>
+    <div class="chip" id="btnNewSet">NEW&nbsp;DEFECT&nbsp;SET</div>
+  </div>
+</div>
+
+<div id="results">
+  <div class="panel">
+    <h2 id="resTitle">INSPECTION COMPLETE</h2>
+    <div class="big" id="resScore"></div>
+    <ul id="resList"></ul>
+    <div class="note" id="resNote"></div>
+    <div class="chiprow"><div class="chip on" id="resAgain">RUN ANOTHER SET</div><div class="chip" id="resClose">CLOSE</div></div>
+  </div>
+</div>
+
+<div id="help">
+  <div class="panel">
+    <h2>FIELD CONTROLS</h2>
+    <div class="sub">You are under a double-wide on a CMU pier / poured-pad / tie-down system, eye height ≈ 26&Prime; (crawling). Your headlamp follows your view.</div>
+    <table>
+      <tr><td>W A S D / arrows</td><td>Crawl forward · left · back · right</td></tr>
+      <tr><td>Drag mouse</td><td>Look around (headlamp follows)</td></tr>
+      <tr><td>Click component</td><td>Open its spec card (pass / fail criteria)</td></tr>
+      <tr><td>Shift</td><td>Crawl slower (detail pass)</td></tr>
+      <tr><td>Touch</td><td>Left pad = move · drag right side = look</td></tr>
+    </table>
+    <div class="modes">
+      <b>EXPLORE</b> — correct reference install. Every component is clickable and labeled.<br>
+      <b>INSPECT</b> — a randomized set of real-world defects is injected. Find and flag them all. The most commonly missed item in the field is the <b>longitudinal tie</b> — check both end bays.<br>
+      <b>WIND ZONE</b> — toggling to Zone II–III adds the vertical sidewall straps that higher wind zones require in addition to diagonal frame ties.
+    </div>
+    <div class="fine">Training aid for internal inspector onboarding. Geometry and spacing are nominal/teaching values — actual installs are governed by the manufacturer's installation manual, 24 CFR Part 3285, and the HUD PFGMH. Not for construction.</div>
+    <div style="margin-top:14px"><div class="chip on" id="helpClose">START CRAWLING</div></div>
+  </div>
+</div>
+
+<div id="bottomhud">
+  <div id="keys"><b>WASD</b> crawl &nbsp;·&nbsp; <b>drag</b> look &nbsp;·&nbsp; <b>click</b> identify &nbsp;·&nbsp; <b>shift</b> slow</div>
+  <div id="compass"><span id="posReadout"></span></div>
+</div>
+
+<div id="joy"><div class="nub"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+/* =========================================================================
+   CRAWLSPACE TRAINER — first-person CMU pier / footer / tie-down explainer
+   Single file. Three.js r128. No storage. N64-ish flat-lit aesthetic.
+   Units: meters. 1 in = 0.0254 m.
+   ========================================================================= */
+const IN = 0.0254, FT = 0.3048;
+
+/* ---- scene plan -------------------------------------------------------- */
+const HOME_W = 28*FT, HOME_L = 48*FT;          // double-wide 28 x 48
+const HALF_W = HOME_W/2, HALF_L = HOME_L/2;
+const SKIRT_X = HALF_W, SKIRT_Z = HALF_L;
+const BEAM_XS = [-3.39, -0.87, 0.87, 3.39];    // 2 I-beams per 14' section
+const PIER_ZS = [-6.10, -3.66, -1.22, 1.22, 3.66, 6.10];   // ~8' o.c.
+const MARRIAGE_ZS = [-6.10, -2.0, 2.0, 6.10];
+const ANCHOR_X = 3.95;                          // outboard of outer beams
+const TIE_ZS = [-6.10, -1.22, 3.66];            // diagonal frame-tie stations (each side)
+const LONG_TIE_Z = 6.55;                        // longitudinal ties near each end
+
+const BLOCK = {w:7.625*IN, h:7.625*IN, l:15.625*IN};
+const COURSES = 3;                              // ~24" pier
+const PAD = {w:16*IN, l:16*IN, t:4*IN};
+const CAP_T = 4*IN, PLATE_T = 1.5*IN, SHIM_T = 1*IN;
+const PIER_TOP = PAD.t + COURSES*BLOCK.h + CAP_T + PLATE_T + SHIM_T;  // ≈ 0.85m? compute
+const BEAM_H = 10*IN, BEAM_FL = 5*IN;
+const BELLY_Y = PAD.t + COURSES*BLOCK.h + CAP_T + PLATE_T + SHIM_T + BEAM_H; // underside of floor
+const EYE = 0.62, EYE_LOW = 0.62;
+
+/* ---- palette (field-tech utility) -------------------------------------- */
+const C = {
+  soil:0x6E5A43, soilDark:0x57462F, grass:0x5E6E3F,
+  block:0xB9B6AE, blockDark:0x9A968C, pad:0xA8A49B, cap:0xC4C0B6,
+  steel:0x5C7C99, steelDark:0x44607A, strap:0xC9CFD4, rust:0x8A4B2F,
+  wood:0xB08D57, scrap:0x8C6A3F,
+  vapor:0xBFD9EA, vaporDark:0x9DBDD2,
+  skirt:0xD8CBAA, skirtDark:0xB7AA88, vent:0xE8EEF4,
+  belly:0x3A3F4B, joist:0x6E5A43, water:0x26323B,
+  hl:0xFFB454, flag:0x58C08A, reveal:0xE25B4A
+};
+
+/* ---- component spec database ------------------------------------------ */
+const SPECS = {
+  pier: {
+    name:'CMU Block Pier (single-stack)',
+    role:'Carries gravity load from the chassis I-beam down to the footing pad. One 8×8×16 block per course, cores vertical, stacked plumb.',
+    pass:[
+      'Plumb and square under the beam — no lean, no rotation',
+      'Single-stack height ≤ 36 in. (this one is 3 courses ≈ 24 in.)',
+      'Cores vertical; blocks sound, no cracks or spalls',
+      'Centered on its footing pad, full bearing'
+    ],
+    fail:[
+      'Leaning / tilted pier (load no longer concentric)',
+      'Single stack used above 36 in. — needs double-stack (36–67 in.), engineering above 67 in.',
+      'Cracked or broken block, cores horizontal',
+      'Pier resting on soil with no pad'
+    ],
+    ref:'24 CFR 3285.306 · 3285.303(d)(1)(iv) · PFGMH App. C'
+  },
+  cap: {
+    name:'Pier Cap, Plate & Hardwood Shims',
+    role:'Closes the block cores and transfers load into the beam: 4 in. solid cap, 2× nominal wood plate, then hardwood shims driven tight from both sides.',
+    pass:[
+      '4 in. solid concrete cap (or equal) over open cores',
+      'Hardwood shims in matched pairs, driven snug, ≤ 1 in. total',
+      'No more than ~2 in. of total wood between cap and beam',
+      'Tight contact — no daylight between shim and beam flange'
+    ],
+    fail:[
+      'Scrap lumber, brick bits, or tall loose wood stacks as shims',
+      'Single-sided shim creating a point load / kick-out risk',
+      'Missing cap — beam bearing over open cores',
+      'Shims loose enough to pull by hand'
+    ],
+    ref:'24 CFR 3285.306(e) · manufacturer install manual'
+  },
+  pad: {
+    name:'Footing Pad (poured / precast)',
+    role:'Spreads the pier load into the soil. Min 16×16 in. here; sized by pier load and soil bearing capacity. Must sit on firm, undisturbed or compacted soil.',
+    pass:[
+      'Pad present under EVERY pier, level, full contact',
+      'Sized for load and soil class (16×16 min; larger at marriage line)',
+      'No cracking through the pad, no undermining or washout',
+      'Pier centered — no edge bearing'
+    ],
+    fail:[
+      'Pier sitting directly on soil (no pad) or on a half-buried pad',
+      'Pad cracked through, tipped, or undermined by erosion',
+      'Pad far smaller than required for the soil class',
+      'Pad floating on uncompacted fill'
+    ],
+    ref:'24 CFR 3285.312 · soil class per 3285.202'
+  },
+  ibeam: {
+    name:'Chassis I-Beam (main rail)',
+    role:'The home\u2019s steel spine. Two per section — gravity loads collect here and go down through the piers; tie-down straps grab it for lateral/uplift restraint.',
+    pass:[
+      'Straight, continuous, no notching or torch cuts',
+      'Surface rust OK; no section loss, holes, or flange tears',
+      'Bearing fully on every pier shim stack',
+      'Frame ties connected to the rail per manual'
+    ],
+    fail:[
+      'Beam gapping over a settled pier (pier carries nothing)',
+      'Heavy scaling rust with flange section loss',
+      'Field-cut holes or notches at high-stress points',
+      'Strap connector biting only the flange tip'
+    ],
+    ref:'HUD construction standard 24 CFR 3280 (chassis)'
+  },
+  marriage: {
+    name:'Marriage-Line Pier',
+    role:'Supports the mate line where the two sections join — placed at openings and per the manufacturer\u2019s blocking diagram. Often heavier-loaded than frame piers.',
+    pass:[
+      'Located at mate-line columns / openings per the manual',
+      'Often double-block or larger pad — check the spec sheet',
+      'Tight to the mate-line rim — no gap',
+      'Pad sized for the concentrated load'
+    ],
+    fail:[
+      'Missing at a required opening support point',
+      'Same light pad as a frame pier under a heavy mate-line point',
+      'Gapped — the ridge sags and interior doors bind',
+      'Offset from the actual column point'
+    ],
+    ref:'Manufacturer blocking diagram · 24 CFR 3285.310'
+  },
+  tie: {
+    name:'Diagonal Frame Tie (strap)',
+    role:'Galvanized steel strap from the I-beam rail down ~40–50° to the ground anchor. Resists lateral + uplift (wind). This is what keeps the home on its piers.',
+    pass:[
+      'Taut — deflects little under hand pressure, no sag',
+      'Type 1, Class B galvanized strap, 1¼ in. × 0.035 in. min',
+      'Angle roughly 40–50° to ground, wrapped/bolted per listing',
+      'Spacing per wind zone and manual (≈ every 5.3–8 ft as required)'
+    ],
+    fail:[
+      'Slack, twisted, or sagging strap (does nothing until it\u2019s too late)',
+      'Heavy rust-through or torn edge at the connector',
+      'Missing entirely at a required station',
+      'Split-bolt only finger-tight'
+    ],
+    ref:'24 CFR 3285.402 · strap per ASTM D3953'
+  },
+  anchor: {
+    name:'Auger Ground Anchor',
+    role:'Screw-in earth anchor rated for the soil class, installed full depth with the head at or just above grade. Takes the strap load into the ground.',
+    pass:[
+      'Listed/rated anchor matched to the tested soil class',
+      'Installed full depth — helix fully buried, head near grade',
+      'In line with the strap pull (or stabilizer-plate corrected)',
+      'No movement under load test / proof torque per listing'
+    ],
+    fail:[
+      'Anchor backed out or leaning toward the home',
+      'Wrong anchor for soil (spins freely / pulls)',
+      'Head buried so strap saws through soil, or 8 in.+ proud',
+      'Hooked on debris or set in disturbed backfill'
+    ],
+    ref:'24 CFR 3285.402(b) · anchor listing / soil torque probe'
+  },
+  plate: {
+    name:'Stabilizer Plate',
+    role:'Flat plate driven at the anchor head on the load side. Stops the anchor shaft from knifing sideways through the soil when the diagonal strap loads it.',
+    pass:[
+      'Present at every diagonal-tie anchor (unless listing exempts)',
+      'Driven vertical, tight to the shaft, on the strap side',
+      'Fully embedded — top edge near grade',
+      'Correct size for the anchor model'
+    ],
+    fail:[
+      'MISSING — most common anchor install error',
+      'Driven on the wrong side of the shaft',
+      'Half-driven and loose',
+      'Bent over instead of embedded'
+    ],
+    ref:'Anchor manufacturer listing · 24 CFR 3285.402'
+  },
+  longtie: {
+    name:'Longitudinal Tie',
+    role:'Strap set running ALONG the home\u2019s length at the end bays, resisting front/back movement. Diagonal frame ties only work side-to-side — these cover the other axis.',
+    pass:[
+      'Present at both ends of the home (each frame rail)',
+      'Angled along the longitudinal axis to a rated anchor',
+      'Taut, listed strap and connectors, like frame ties',
+      'Anchors with stabilizer plates as required'
+    ],
+    fail:[
+      'MISSING ENTIRELY — the #1 most commonly absent component in the field',
+      'Pointed sideways (duplicating the diagonal ties, doing nothing longitudinally)',
+      'Slack or unlisted hardware',
+      'Only one end of the home tied'
+    ],
+    ref:'24 CFR 3285.402(c) · manufacturer manual'
+  },
+  sidewall: {
+    name:'Vertical Sidewall Strap (Wind Zone II–III)',
+    role:'Over-the-rail / sidewall vertical strap from the wall to the ground anchor. Required in Wind Zones II and III in addition to diagonal frame ties.',
+    pass:[
+      'Present at the spacing the manual requires for the zone',
+      'Vertical run, taut, listed strap',
+      'Shares a rated double-head anchor or its own anchor',
+      'Connector at the rail/wall per listing'
+    ],
+    fail:[
+      'Absent on a Zone II–III home (common on relocated units)',
+      'Strap cut during a skirting or deck retrofit',
+      'Slack / twisted',
+      'Anchor not rated for the doubled load'
+    ],
+    ref:'24 CFR 3285.402(d) · wind zone per data plate'
+  },
+  vapor: {
+    name:'Vapor Barrier (6-mil poly)',
+    role:'Ground cover across the crawl footprint. Keeps soil moisture out of the belly, framing, and insulation. Seams lapped 12 in.; edges to the skirting line.',
+    pass:[
+      'Continuous coverage, ≥ 6-mil, lapped seams',
+      'Run up to pads/piers and trimmed neat',
+      'No standing water on top of it',
+      'Intact — no large tears or burned-back areas'
+    ],
+    fail:[
+      'Torn / missing sections exposing bare soil',
+      'Standing water pooled on or under it',
+      'Buried under construction debris',
+      'Stops several feet short of the perimeter'
+    ],
+    ref:'24 CFR 3285.204 · local code may exceed'
+  },
+  skirt: {
+    name:'Skirting & Ventilation',
+    role:'Non-structural perimeter enclosure with net-free vent area (~1 ft² per 150 ft² of crawl, reduced with ground cover). Access panel required.',
+    pass:[
+      'Vents open, screened, distributed on all sides',
+      'Access opening ≥ 18×24 in.',
+      'Skirting not transferring load into the home',
+      'Drainage: grade slopes away outside'
+    ],
+    fail:[
+      'Vents blocked / painted shut — moisture trap',
+      'Skirting hard-bearing and buckling under the rim',
+      'No access panel',
+      'Soil piled against it bridging moisture'
+    ],
+    ref:'24 CFR 3285.505 · HUD PFGMH'
+  },
+  belly: {
+    name:'Floor System / Bottom Board',
+    role:'The underside you\u2019re looking up at: joists, insulation, and the bottom-board (belly wrap). Tears here = energy loss, pests, and moisture in the insulation.',
+    pass:[
+      'Bottom board intact, repairs taped/patched with listed material',
+      'No sagging wet insulation bulges',
+      'Plumbing penetrations sealed',
+      'No rodent intrusion paths'
+    ],
+    fail:[
+      'Hanging torn belly with exposed insulation',
+      'Water-stained sag lines along plumbing runs',
+      'Open chases at penetrations',
+      'Crushed ducts resting on the ground'
+    ],
+    ref:'24 CFR 3285.901 (close-up) · field repair standards'
+  },
+  water: {
+    name:'Standing Water',
+    role:'Ponded water in the crawl. Not a component — a condition. Means grading, drainage, or plumbing is failing, and it kills anchors, pads, and the belly over time.',
+    pass:['(none — water in the crawl is always a finding)'],
+    fail:[
+      'Ponding = soil bearing loss under nearby pads',
+      'Accelerated anchor corrosion',
+      'Vapor drive into the floor system',
+      'Document source: grading, gutter, or supply/waste leak'
+    ],
+    ref:'24 CFR 3285.203 drainage · report as deficiency'
+  }
+};
+
+/* ---- defect library ----------------------------------------------------
+   Each defect: id, label (checklist text), targets-built-at-scene-time.
+   `detect` ties flagging to clicked group ids.                            */
+const DEFECT_LIB = [
+  {id:'tilt',     label:'Tilted / leaning pier'},
+  {id:'nopad',    label:'Pier bearing on soil — missing footing pad'},
+  {id:'slack',    label:'Slack diagonal frame tie'},
+  {id:'scrap',    label:'Scrap-lumber shim stack'},
+  {id:'tall',     label:'Over-height single-stack pier (>36 in.)'},
+  {id:'nolong',   label:'Longitudinal ties missing (end bays)'},
+  {id:'noplate',  label:'Anchor missing stabilizer plate'},
+  {id:'notie',    label:'Frame tie missing at required station'},
+  {id:'tear',     label:'Torn vapor barrier — exposed soil'},
+  {id:'water',    label:'Standing water in crawl'}
+];
+const DEFECTS_PER_RUN = 5;
+
+/* ======================== three.js scaffolding ========================== */
+let renderer, scene, camera, headlamp, raycaster;
+let pickables = [];            // meshes with userData.groupId
+let groupMeta = {};            // groupId -> {spec, label, meshes[], defectId?}
+let pierColliders = [];        // {x,z,r}
+let mode = 'explore';          // 'explore' | 'inspect'
+let zone23 = false, labelsOn = true;
+let activeDefects = [];        // [{id,label,groupIds:[..],found:false}]
+let falseFlags = 0, revealed = false;
+let hoverGroup = null, selGroup = null;
+
+const yaw = {v: Math.PI*0.15}, pitch = {v: -0.05};
+const pos = new THREE.Vector3(2.6, EYE, 5.2);
+const keys = {};
+let touchMove = {x:0,y:0};
+
+const $ = id => document.getElementById(id);
+
+init();
+
+function init(){
+  renderer = new THREE.WebGLRenderer({antialias:false, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setSize(innerWidth, innerHeight);
+  $('app').appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0B0D10);
+  scene.fog = new THREE.FogExp2(0x0B0D10, 0.085);
+
+  camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.05, 60);
+  scene.add(camera);
+
+  // headlamp — warm spotlight glued to the camera
+  headlamp = new THREE.SpotLight(0xFFE2B0, 2.1, 16, Math.PI*0.21, 0.45, 1.4);
+  camera.add(headlamp);
+  headlamp.position.set(0, 0.06, 0.02);
+  const lTarget = new THREE.Object3D(); lTarget.position.set(0, -0.04, -1);
+  camera.add(lTarget); headlamp.target = lTarget;
+
+  scene.add(new THREE.AmbientLight(0x36404E, 0.5));
+  const hemi = new THREE.HemisphereLight(0x2A3340, 0x1A150E, 0.35); scene.add(hemi);
+
+  raycaster = new THREE.Raycaster();
+
+  buildScene();
+  bindUI();
+  bindControls();
+
+  $('loadscreen').style.display = 'none';
+  $('help').classList.add('show');
+
+  renderer.setAnimationLoop(tick);
+  addEventListener('resize', ()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
+}
+
+/* ======================== materials & geometry =========================== */
+const MAT = {};
+function mat(color, opts={}){
+  const key = color+JSON.stringify(opts);
+  if(!MAT[key]) MAT[key] = new THREE.MeshLambertMaterial(Object.assign({color}, opts));
+  return MAT[key];
+}
+function box(w,h,d, color, opts){ return new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat(color,opts)); }
+
+function register(groupId, specKey, label, mesh, defectId){
+  if(!groupMeta[groupId]) groupMeta[groupId] = {spec:specKey, label, meshes:[], defectId:defectId||null};
+  mesh.traverse(o=>{ if(o.isMesh){ o.userData.groupId = groupId; pickables.push(o);} });
+  groupMeta[groupId].meshes.push(mesh);
+}
+
+/* ======================== scene construction ============================= */
+let world; // root group rebuilt on reset
+
+function buildScene(defectPlan){
+  // teardown
+  if(world){ scene.remove(world); world.traverse(o=>{ if(o.geometry) o.geometry.dispose(); }); }
+  pickables = []; groupMeta = {}; pierColliders = [];
+  world = new THREE.Group(); scene.add(world);
+
+  const plan = defectPlan || {set:[], map:{}};
+  const D = id => plan.map[id];   // returns defect placement info or undefined
+
+  /* ---- ground ---- */
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(SKIRT_X*2+6, SKIRT_Z*2+6, 24, 36),
+    mat(C.soil)
+  );
+  ground.rotation.x = -Math.PI/2;
+  // lumpy soil
+  {
+    const g = ground.geometry.attributes.position;
+    for(let i=0;i<g.count;i++){
+      const x=g.getX(i), y=g.getY(i);
+      g.setZ(i, (Math.sin(x*2.1)*Math.cos(y*1.7)+Math.sin(x*0.7+y*1.3))*0.018);
+    }
+    ground.geometry.computeVertexNormals();
+  }
+  world.add(ground);
+
+  /* ---- vapor barrier (with optional tear) ---- */
+  {
+    const vb = new THREE.Group();
+    const sheet = new THREE.Mesh(new THREE.PlaneGeometry(SKIRT_X*2-0.3, SKIRT_Z*2-0.3, 10, 16), mat(C.vapor, {transparent:true, opacity:0.96}));
+    sheet.rotation.x = -Math.PI/2; sheet.position.y = 0.025;
+    const g = sheet.geometry.attributes.position;
+    for(let i=0;i<g.count;i++){ const x=g.getX(i), y=g.getY(i); g.setZ(i, Math.sin(x*3.3)*Math.cos(y*2.6)*0.012); }
+    sheet.geometry.computeVertexNormals();
+    vb.add(sheet);
+    // lap seams
+    for(let zi=-2; zi<=2; zi++){
+      const seam = box(SKIRT_X*2-0.4, 0.004, 0.06, C.vaporDark); seam.position.set(0, 0.035, zi*2.6); vb.add(seam);
+    }
+    world.add(vb);
+    register('vapor','vapor','Vapor barrier (6-mil)', vb, null);
+
+    if(D('tear')){
+      const t = D('tear');
+      const hole = new THREE.Mesh(new THREE.CircleGeometry(0.65, 14), mat(C.soilDark));
+      hole.rotation.x = -Math.PI/2; hole.position.set(t.x, 0.045, t.z);
+      const flap = box(0.8,0.006,0.25, C.vaporDark); flap.position.set(t.x+0.45,0.07,t.z+0.3); flap.rotation.y=0.5; flap.rotation.z=0.25;
+      const tearG = new THREE.Group(); tearG.add(hole, flap); world.add(tearG);
+      register('tearpatch','vapor','TORN vapor barrier', tearG, 'tear');
+    }
+  }
+
+  /* ---- standing water (defect) ---- */
+  if(D('water')){
+    const t = D('water');
+    const pond = new THREE.Mesh(new THREE.CircleGeometry(1.0, 18), new THREE.MeshLambertMaterial({color:C.water, transparent:true, opacity:0.88}));
+    pond.rotation.x = -Math.PI/2; pond.position.set(t.x, 0.05, t.z);
+    const pondG = new THREE.Group(); pondG.add(pond); world.add(pondG);
+    register('water','water','STANDING WATER', pondG, 'water');
+  }
+
+  /* ---- skirting + vents ---- */
+  {
+    const sk = new THREE.Group();
+    const h = BELLY_Y + 0.34, t = 0.04;
+    const mk = (w,d,x,z)=>{ const m=box(w,h,d,C.skirt); m.position.set(x,h/2,z); sk.add(m); };
+    mk(SKIRT_X*2, t, 0,  SKIRT_Z); mk(SKIRT_X*2, t, 0, -SKIRT_Z);
+    mk(t, SKIRT_Z*2,  SKIRT_X, 0); mk(t, SKIRT_Z*2, -SKIRT_X, 0);
+    // vents: emissive panels + dim lights
+    const ventMat = new THREE.MeshLambertMaterial({color:C.vent, emissive:0x8FA8BF, emissiveIntensity:0.7, side:THREE.DoubleSide});
+    const ventDefs = [
+      {x:0, z: SKIRT_Z-0.025, ry:0}, {x:0, z:-(SKIRT_Z-0.025), ry:0},
+      {x: SKIRT_X-0.025, z:2.5, ry:Math.PI/2}, {x:-(SKIRT_X-0.025), z:-2.5, ry:Math.PI/2}
+    ];
+    ventDefs.forEach(v=>{
+      const p = new THREE.Mesh(new THREE.PlaneGeometry(0.55,0.18), ventMat);
+      p.position.set(v.x, 0.45, v.z); p.rotation.y = v.ry; sk.add(p);
+      const lt = new THREE.PointLight(0xAEC6DC, 0.32, 5.5, 2); lt.position.set(v.x*0.93, 0.5, v.z*0.93); sk.add(lt);
+    });
+    world.add(sk);
+    register('skirt','skirt','Skirting / vents', sk, null);
+  }
+
+  /* ---- floor system underside (belly + joist hints + rim) ---- */
+  {
+    const fl = new THREE.Group();
+    const belly = box(HOME_W-0.1, 0.06, HOME_L-0.1, C.belly);
+    belly.position.y = BELLY_Y + 0.03; fl.add(belly);
+    // slight belly sag strips between beams
+    for(const xs of [[-3.39,-0.87],[-0.87,0.87],[0.87,3.39]]){
+      const w = xs[1]-xs[0]-0.18;
+      const sag = box(w, 0.05, HOME_L-0.3, 0x333845);
+      sag.position.set((xs[0]+xs[1])/2, BELLY_Y - 0.012, 0); fl.add(sag);
+    }
+    // rim band
+    const rim = box(HOME_W, 0.34, HOME_L, 0xD9D2C4);
+    rim.position.y = BELLY_Y + 0.06 + 0.17;
+    fl.add(rim);
+    // marriage line gasket
+    const ml = box(0.05, 0.05, HOME_L-0.2, 0x2A2E38); ml.position.set(0, BELLY_Y+0.02, 0); fl.add(ml);
+    world.add(fl);
+    register('belly','belly','Floor system / bottom board', fl, null);
+  }
+
+  /* ---- I-beams ---- */
+  BEAM_XS.forEach((bx,bi)=>{
+    const g = new THREE.Group();
+    const web = box(0.012, BEAM_H-2*0.012, HOME_L-0.6, C.steel);
+    const fT  = box(BEAM_FL, 0.012, HOME_L-0.6, C.steelDark);
+    const fB  = fT.clone();
+    web.position.y = 0; fT.position.y = (BEAM_H-0.012)/2; fB.position.y = -(BEAM_H-0.012)/2;
+    g.add(web,fT,fB);
+    g.position.set(bx, BELLY_Y - BEAM_H/2, 0);
+    world.add(g);
+    register('beam'+bi, 'ibeam', 'Chassis I-beam', g, null);
+  });
+
+  /* ---- piers (frame + marriage) ---- */
+  const blockGeo = new THREE.BoxGeometry(BLOCK.l, BLOCK.h-0.004, BLOCK.w);  // 16" face across beam
+  const tallStation = D('tall'), tiltStation = D('tilt'), nopadStation = D('nopad'), scrapStation = D('scrap');
+
+  function buildPier(px, pz, idBase, isMarriage){
+    const g = new THREE.Group();
+    const here = s => s && Math.abs(s.x-px)<0.01 && Math.abs(s.z-pz)<0.01;
+    const isTall = here(tallStation), isTilt = here(tiltStation), isNoPad = here(nopadStation), isScrap = here(scrapStation);
+    const courses = isTall ? 5 : COURSES;
+    // local soil depression for the tall pier (low spot)
+    let baseY = 0;
+    if(isTall){
+      baseY = -(courses-COURSES)*BLOCK.h - 0.02;
+      const dep = new THREE.Mesh(new THREE.CircleGeometry(0.55, 16), mat(C.soilDark));
+      dep.rotation.x = -Math.PI/2; dep.position.set(px, 0.052, pz); world.add(dep);
+    }
+
+    // footing pad
+    let padTop = baseY + PAD.t;
+    if(!isNoPad){
+      const pad = box(isMarriage?PAD.w*1.4:PAD.w, PAD.t, isMarriage?PAD.l*1.4:PAD.l, C.pad);
+      pad.position.set(0, baseY + PAD.t/2, 0); g.add(pad);
+      register(idBase+'_pad','pad','Footing pad', pad, null);
+    } else {
+      padTop = baseY + 0.012; // sunk into soil a touch
+    }
+
+    // block stack
+    const stack = new THREE.Group();
+    for(let i=0;i<courses;i++){
+      const b = new THREE.Mesh(blockGeo, mat(C.block));
+      b.position.y = padTop + BLOCK.h/2 + i*BLOCK.h;
+      b.rotation.y = (i%2)*0.0 + (isTilt?0:(Math.random()-0.5)*0.03);
+      // mortar-less joint shadow line
+      const j = box(BLOCK.l+0.004, 0.006, BLOCK.w+0.004, C.blockDark);
+      j.position.y = padTop + (i+1)*BLOCK.h - 0.003;
+      stack.add(b, j);
+      // core holes hint (front face dark insets)
+      const core = box(0.05, BLOCK.h*0.6, BLOCK.w+0.002, 0x6F6C64);
+      core.position.set(-BLOCK.l*0.22, b.position.y, 0); stack.add(core);
+      const core2 = core.clone(); core2.position.x = BLOCK.l*0.22; stack.add(core2);
+    }
+    const stackTop = padTop + courses*BLOCK.h;
+
+    // cap + plate + shims (or scrap)
+    const capG = new THREE.Group();
+    if(isScrap){
+      const bits = [
+        box(0.30,0.045,0.14, C.scrap), box(0.22,0.04,0.18, 0xA37B4C),
+        box(0.34,0.035,0.10, 0x7A5A36), box(0.18,0.05,0.16, C.scrap)
+      ];
+      let y = stackTop;
+      bits.forEach((b,i)=>{ b.position.set((Math.random()-0.5)*0.07, y + b.geometry.parameters.height/2, (Math.random()-0.5)*0.06); b.rotation.y=(Math.random()-0.5)*0.7; y += b.geometry.parameters.height; capG.add(b); });
+    } else {
+      const cap = box(BLOCK.l, CAP_T, BLOCK.w, C.cap); cap.position.y = stackTop + CAP_T/2;
+      const plate = box(BLOCK.l*0.96, PLATE_T, BLOCK.w*0.96, C.wood); plate.position.y = stackTop + CAP_T + PLATE_T/2;
+      const sh1 = box(0.16, SHIM_T, BLOCK.w*0.9, 0xC9A36A); sh1.position.set(-0.05, stackTop+CAP_T+PLATE_T+SHIM_T/2, 0); sh1.rotation.z = 0.01;
+      const sh2 = sh1.clone(); sh2.position.x = 0.06; sh2.rotation.z = -0.01;
+      capG.add(cap, plate, sh1, sh2);
+    }
+
+    const pierBody = new THREE.Group(); pierBody.add(stack, capG);
+    if(isTilt){ pierBody.rotation.z = 0.10; pierBody.rotation.x = 0.03; }
+    g.add(pierBody);
+    g.position.set(px, 0, pz);
+    world.add(g);
+
+    const defId = isTilt?'tilt' : isNoPad?'nopad' : isScrap?'scrap' : isTall?'tall' : null;
+    register(idBase, isMarriage?'marriage':'pier', isMarriage?'Marriage-line pier':'CMU pier', pierBody, defId);
+    register(idBase+'_cap','cap','Cap & shims', capG, isScrap?'scrap':null);
+    if(isNoPad){
+      // dark soil contact ring to telegraph the missing pad
+      const ring = new THREE.Mesh(new THREE.RingGeometry(0.14,0.26,16), mat(C.soilDark));
+      ring.rotation.x = -Math.PI/2; ring.position.set(px,0.054,pz); world.add(ring);
+    }
+    pierColliders.push({x:px, z:pz, r:0.34});
+    return defId;
+  }
+
+  let pierIdx = 0;
+  BEAM_XS.forEach((bx)=>{ PIER_ZS.forEach((pz)=>{ buildPier(bx, pz, 'pier'+(pierIdx++), false); }); });
+  MARRIAGE_ZS.forEach((pz)=>{ buildPier(0, pz, 'mpier'+(pierIdx++), true); });
+
+  /* ---- anchors + diagonal frame ties ---- */
+  const slackStation = D('slack'), notieStation = D('notie'), noplateStation = D('noplate');
+  let tieIdx = 0;
+  [-1, 1].forEach(side=>{
+    TIE_ZS.forEach(tz=>{
+      const ax = ANCHOR_X*side, beamX = 3.39*side;
+      const station = {x:ax, z:tz};
+      const isSlack = sm(slackStation,station), isMissing = sm(notieStation,station), isNoPlate = sm(noplateStation,station);
+      const id = 'tie'+(tieIdx++);
+
+      // anchor: shaft + head + eye
+      const aG = new THREE.Group();
+      const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,0.30,8), mat(C.steelDark));
+      shaft.position.y = 0.02; aG.add(shaft);
+      const head = box(0.07,0.05,0.07, C.steel); head.position.y = 0.17; aG.add(head);
+      const eye = new THREE.Mesh(new THREE.TorusGeometry(0.03,0.009,6,12), mat(C.steel));
+      eye.position.y = 0.22; eye.rotation.y = Math.PI/2; aG.add(eye);
+      aG.position.set(ax, 0, tz);
+      world.add(aG);
+      register(id+'_anchor','anchor','Auger anchor', aG, null);
+
+      // stabilizer plate
+      if(!isNoPlate){
+        const pl = box(0.015, 0.16, 0.20, C.steelDark);
+        pl.position.set(ax - 0.05*side, 0.075, tz);
+        const plG = new THREE.Group(); plG.add(pl); world.add(plG);
+        register(id+'_plate','plate','Stabilizer plate', plG, null);
+      } else {
+        register(id+'_anchor2','anchor','Auger anchor — NO PLATE', aG, 'noplate');
+      }
+
+      // strap
+      if(!isMissing){
+        const top = new THREE.Vector3(beamX, BELLY_Y - BEAM_H + 0.01, tz);
+        const bot = new THREE.Vector3(ax, 0.21, tz);
+        let strapMesh;
+        if(isSlack){
+          const mid = top.clone().lerp(bot,0.55); mid.y -= 0.22; mid.z += 0.10;
+          const curve = new THREE.QuadraticBezierCurve3(top, mid, bot);
+          strapMesh = new THREE.Mesh(new THREE.TubeGeometry(curve, 12, 0.013, 5), mat(C.strap));
+        } else {
+          const dir = bot.clone().sub(top), len = dir.length();
+          strapMesh = box(0.032, len, 0.006, C.strap);
+          strapMesh.position.copy(top.clone().add(bot).multiplyScalar(0.5));
+          strapMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), dir.normalize());
+        }
+        const sG = new THREE.Group(); sG.add(strapMesh); world.add(sG);
+        register(id, 'tie', isSlack?'SLACK frame tie':'Diagonal frame tie', sG, isSlack?'slack':null);
+      } else {
+        // ghost marker so the missing tie is findable: tag the anchor station
+        register(id+'_missing','tie','Anchor with NO frame tie', aG, 'notie');
+      }
+    });
+  });
+
+  /* ---- longitudinal ties (unless the defect removes them) ---- */
+  if(!D('nolong')){
+    [-1,1].forEach(end=>{
+      [-3.39, 3.39, -0.87, 0.87].forEach(bx=>{
+        const top = new THREE.Vector3(bx, BELLY_Y - BEAM_H + 0.01, 6.6*end);
+        const bot = new THREE.Vector3(bx + (bx>0?-0.3:0.3), 0.20, (6.6+0.85)*end);
+        const dir = bot.clone().sub(top), len = dir.length();
+        const s = box(0.032, len, 0.006, C.strap);
+        s.position.copy(top.clone().add(bot).multiplyScalar(0.5));
+        s.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), dir.normalize());
+        // small anchor at base — outside skirting visually clipped, pull inside:
+        bot.z = Math.sign(bot.z)*Math.min(Math.abs(bot.z), SKIRT_Z-0.25);
+        const aG = new THREE.Group();
+        const head = box(0.06,0.05,0.06, C.steel); head.position.copy(bot).setY(0.16); aG.add(head);
+        const sG = new THREE.Group(); sG.add(s, aG); world.add(sG);
+        register('long_'+end+'_'+bx.toFixed(1), 'longtie', 'Longitudinal tie', sG, null);
+      });
+    });
+  } else {
+    // invisible-ish hotspots at both end bays so the absence can be flagged
+    [-1,1].forEach(end=>{
+      const hz = new THREE.Mesh(new THREE.BoxGeometry(HOME_W-1.2, 0.5, 0.9),
+        new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:0.0, depthWrite:false}));
+      hz.position.set(0, 0.5, 6.55*end);
+      world.add(hz);
+      register('longmiss_'+end, 'longtie', 'End bay — longitudinal ties?', hz, 'nolong');
+    });
+  }
+
+  /* ---- vertical sidewall straps (Zone II–III) ---- */
+  if(zone23){
+    [-1,1].forEach(side=>{
+      [-4.88, -1.5, 1.5, 4.88].forEach(sz=>{
+        const x = (SKIRT_X-0.10)*side;
+        const top = new THREE.Vector3(x, BELLY_Y+0.30, sz);
+        const bot = new THREE.Vector3(x, 0.18, sz);
+        const s = box(0.032, top.y-bot.y, 0.006, C.strap);
+        s.position.set(x, (top.y+bot.y)/2, sz);
+        const head = box(0.06,0.05,0.06, C.steel); head.position.set(x, 0.15, sz);
+        const g = new THREE.Group(); g.add(s, head); world.add(g);
+        register('sw_'+side+'_'+sz, 'sidewall', 'Sidewall strap (Zone II–III)', g, null);
+      });
+    });
+  }
+
+  function sm(a,b){ return a && Math.abs(a.x-b.x)<0.01 && Math.abs(a.z-b.z)<0.01; }
+}
+
+/* ======================== defect planning ================================ */
+function randPick(arr,n){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]];} return a.slice(0,n); }
+
+function makeDefectPlan(){
+  const chosen = randPick(DEFECT_LIB, DEFECTS_PER_RUN);
+  const map = {};
+  // station pools
+  const pierStations = [];
+  BEAM_XS.forEach(bx=>PIER_ZS.forEach(pz=>pierStations.push({x:bx,z:pz})));
+  const tieStations = [];
+  [-1,1].forEach(s=>TIE_ZS.forEach(tz=>tieStations.push({x:ANCHOR_X*s, z:tz})));
+  const usedPiers = new Set(), usedTies = new Set();
+  const takePier = ()=>{ let p; do{ p = pierStations[(Math.random()*pierStations.length)|0]; }while(usedPiers.has(p.x+','+p.z)); usedPiers.add(p.x+','+p.z); return p; };
+  const takeTie  = ()=>{ let p; do{ p = tieStations[(Math.random()*tieStations.length)|0]; }while(usedTies.has(p.x+','+p.z)); usedTies.add(p.x+','+p.z); return p; };
+
+  chosen.forEach(d=>{
+    switch(d.id){
+      case 'tilt': case 'nopad': case 'scrap': case 'tall': map[d.id] = takePier(); break;
+      case 'slack': case 'notie': case 'noplate': map[d.id] = takeTie(); break;
+      case 'tear': map[d.id] = {x:(Math.random()*4-2), z:(Math.random()*8-4)}; break;
+      case 'water': map[d.id] = {x:(Math.random()*5-2.5), z:(Math.random()*9-4.5)}; break;
+    }
+  });
+  return {set: chosen, map};
+}
+
+/* ======================== UI wiring ====================================== */
+function bindUI(){
+  $('btnExplore').onclick = ()=> setMode('explore');
+  $('btnInspect').onclick = ()=> setMode('inspect');
+  $('btnZone').onclick = ()=>{
+    zone23 = !zone23;
+    $('btnZone').textContent = zone23 ? 'WIND ZONE II–III' : 'WIND ZONE I';
+    $('btnZone').classList.toggle('on', zone23);
+    rebuild();
+  };
+  $('btnLabels').onclick = ()=>{
+    labelsOn = !labelsOn;
+    $('btnLabels').textContent = labelsOn ? 'LABELS ON' : 'LABELS OFF';
+    if(!labelsOn) $('callout').style.display='none';
+  };
+  $('btnReset').onclick = ()=>{ pos.set(2.6, EYE, 5.2); yaw.v = Math.PI*0.15; pitch.v=-0.05; rebuild(); };
+  $('btnHelp').onclick = ()=> $('help').classList.add('show');
+  $('helpClose').onclick = ()=> $('help').classList.remove('show');
+  $('cardClose').onclick = ()=> { $('card').classList.remove('show'); selGroup=null; };
+  $('btnReveal').onclick = revealAnswers;
+  $('btnNewSet').onclick = ()=> setMode('inspect');
+  $('resAgain').onclick = ()=>{ $('results').classList.remove('show'); setMode('inspect'); };
+  $('resClose').onclick = ()=> $('results').classList.remove('show');
+  $('flagBtn').onclick = flagSelected;
+}
+
+function setMode(m){
+  mode = m;
+  $('btnExplore').classList.toggle('on', m==='explore');
+  $('btnInspect').classList.toggle('on', m==='inspect');
+  $('card').classList.remove('show'); selGroup=null;
+  $('checklist').classList.toggle('show', m==='inspect');
+  $('card').classList.toggle('inspect', m==='inspect');
+  rebuild();
+}
+
+function rebuild(){
+  falseFlags = 0; revealed = false;
+  if(mode==='inspect'){
+    const plan = makeDefectPlan();
+    activeDefects = plan.set.map(d=>({id:d.id, label:d.label, found:false}));
+    buildScene(plan);
+  } else {
+    activeDefects = [];
+    buildScene(null);
+  }
+  updateChecklist();
+}
+
+function updateChecklist(){
+  const found = activeDefects.filter(d=>d.found);
+  $('score').textContent = found.length + ' / ' + activeDefects.length;
+  $('foundlist').innerHTML = found.map(d=>'<li>'+d.label+'</li>').join('');
+  $('falseflags').textContent = falseFlags ? ('false flags: '+falseFlags) : '';
+  if(activeDefects.length && found.length === activeDefects.length && !revealed){
+    showResults(true);
+  }
+}
+
+function flagSelected(){
+  if(!selGroup || mode!=='inspect') return;
+  const meta = groupMeta[selGroup];
+  if(!meta) return;
+  if(meta.defectId){
+    const d = activeDefects.find(x=>x.id===meta.defectId);
+    if(d && !d.found){
+      d.found = true;
+      // tint every group sharing this defect id green
+      Object.keys(groupMeta).forEach(gid=>{
+        if(groupMeta[gid].defectId===meta.defectId) tintGroup(gid, C.flag, 0.55);
+      });
+      $('flagBtn').classList.add('flagged');
+      $('flagBtn').textContent = '✓ CONFIRMED DEFICIENCY';
+    }
+  } else {
+    falseFlags++;
+    $('flagBtn').textContent = '✗ NOT A DEFECT HERE — KEEP LOOKING';
+    setTimeout(()=>{ $('flagBtn').textContent='⚑ FLAG AS DEFICIENT'; }, 1400);
+  }
+  updateChecklist();
+}
+
+function revealAnswers(){
+  revealed = true;
+  Object.keys(groupMeta).forEach(gid=>{
+    const m = groupMeta[gid];
+    if(m.defectId){
+      const d = activeDefects.find(x=>x.id===m.defectId);
+      tintGroup(gid, d && d.found ? C.flag : C.reveal, 0.7);
+    }
+  });
+  showResults(false);
+}
+
+function showResults(clean){
+  const found = activeDefects.filter(d=>d.found).length;
+  $('resTitle').textContent = clean ? 'CLEAN SWEEP' : 'INSPECTION DEBRIEF';
+  $('resScore').textContent = found + ' / ' + activeDefects.length + (falseFlags? ('  ·  '+falseFlags+' false flag'+(falseFlags>1?'s':'')) : '');
+  $('resScore').style.color = clean ? 'var(--pass)' : 'var(--amber)';
+  $('resList').innerHTML = activeDefects.map(d=>'<li class="'+(d.found?'got':'missed')+'">'+d.label+'</li>').join('');
+  const missedLong = activeDefects.some(d=>d.id==='nolong' && !d.found);
+  $('resNote').textContent = clean
+    ? 'Every injected deficiency identified. In the field: photograph each finding, note station (beam line + bay), and tie it to the pass criteria on its spec card.'
+    : (missedLong
+      ? 'You missed the longitudinal ties — so does almost everyone. Diagonal frame ties only resist side-to-side load; always walk both END bays and confirm straps running along the home\u2019s length.'
+      : 'Red items were present but not flagged. Re-run a set and sweep methodically: pad → stack → cap/shims → beam bearing → strap → anchor → plate, every station.');
+  $('results').classList.add('show');
+}
+
+function tintGroup(gid, color, intensity){
+  const m = groupMeta[gid]; if(!m) return;
+  m.meshes.forEach(g=>g.traverse(o=>{
+    if(o.isMesh && o.material && o.material.emissive){
+      if(!o.userData._mat){ o.material = o.material.clone(); o.userData._mat = true; }
+      o.material.emissive = new THREE.Color(color);
+      o.material.emissiveIntensity = intensity;
+      if(o.material.transparent && o.material.opacity < 0.1) o.material.opacity = 0.28;
+    }
+    if(o.isMesh && o.material && !o.material.emissive && o.material.transparent){
+      if(!o.userData._mat){ o.material = o.material.clone(); o.userData._mat = true; }
+      o.material.color = new THREE.Color(color);
+      o.material.opacity = 0.28;
+    }
+  }));
+}
+
+/* ======================== controls ====================================== */
+function bindControls(){
+  addEventListener('keydown', e=>{ keys[e.code]=true; });
+  addEventListener('keyup',   e=>{ keys[e.code]=false; });
+
+  const cv = renderer.domElement;
+  let dragging=false, moved=0, lx=0, ly=0;
+  cv.addEventListener('mousedown', e=>{ dragging=true; moved=0; lx=e.clientX; ly=e.clientY; });
+  addEventListener('mousemove', e=>{
+    if(dragging){
+      const dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY; moved+=Math.abs(dx)+Math.abs(dy);
+      yaw.v -= dx*0.0042; pitch.v -= dy*0.0036;
+      pitch.v = Math.max(-1.25, Math.min(1.25, pitch.v));
+    }
+    hoverAt(e.clientX, e.clientY);
+  });
+  addEventListener('mouseup', e=>{
+    if(dragging && moved<6) clickAt(e.clientX, e.clientY);
+    dragging=false;
+  });
+
+  // touch: left joystick, right look
+  const joy=$('joy'); let joyId=null, lookId=null, lkx=0, lky=0;
+  if('ontouchstart' in window) document.body.classList.add('touch');
+  addEventListener('touchstart', e=>{
+    if(e.target !== cv && e.target !== joy && !joy.contains(e.target)) return;
+    for(const t of e.changedTouches){
+      if(t.clientX < innerWidth*0.4 && t.clientY > innerHeight*0.45 && joyId===null){ joyId=t.identifier; }
+      else if(lookId===null){ lookId=t.identifier; lkx=t.clientX; lky=t.clientY; }
+    }
+  }, {passive:true});
+  addEventListener('touchmove', e=>{
+    for(const t of e.changedTouches){
+      if(t.identifier===joyId){
+        const r=joy.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+        touchMove.x = Math.max(-1,Math.min(1,(t.clientX-cx)/45));
+        touchMove.y = Math.max(-1,Math.min(1,(t.clientY-cy)/45));
+        joy.querySelector('.nub').style.transform = `translate(calc(-50% + ${touchMove.x*26}px), calc(-50% + ${touchMove.y*26}px))`;
+      } else if(t.identifier===lookId){
+        yaw.v -= (t.clientX-lkx)*0.005; pitch.v -= (t.clientY-lky)*0.004;
+        pitch.v = Math.max(-1.25, Math.min(1.25, pitch.v));
+        lkx=t.clientX; lky=t.clientY;
+      }
+    }
+  }, {passive:true});
+  addEventListener('touchend', e=>{
+    for(const t of e.changedTouches){
+      if(t.identifier===joyId){ joyId=null; touchMove.x=0; touchMove.y=0; joy.querySelector('.nub').style.transform='translate(-50%,-50%)'; }
+      if(t.identifier===lookId){
+        lookId=null;
+        // tap = select
+        clickAt(t.clientX, t.clientY);
+      }
+    }
+  });
+}
+
+let hoverPoint = new THREE.Vector3();
+function hoverAt(cx, cy){
+  if(!labelsOn){ hoverGroup=null; return; }
+  const r = pick(cx, cy);
+  hoverGroup = r ? r.gid : null;
+  if(r) hoverPoint.copy(r.point);
+}
+function clickAt(cx, cy){
+  const r = pick(cx, cy);
+  if(!r) return;
+  selGroup = r.gid;
+  openCard(r.gid);
+}
+function pick(cx, cy){
+  const ndc = new THREE.Vector2((cx/innerWidth)*2-1, -(cy/innerHeight)*2+1);
+  raycaster.setFromCamera(ndc, camera);
+  raycaster.far = 9;
+  const hits = raycaster.intersectObjects(pickables, false);
+  for(const h of hits){
+    const gid = h.object.userData.groupId;
+    if(gid && groupMeta[gid]) return {gid, point:h.point};
+  }
+  return null;
+}
+
+function openCard(gid){
+  const meta = groupMeta[gid]; if(!meta) return;
+  const spec = SPECS[meta.spec]; if(!spec) return;
+  $('cardTitle').textContent = spec.name;
+  $('cardRole').textContent = spec.role;
+  $('cardPass').innerHTML = spec.pass.map(s=>'<li>'+s+'</li>').join('');
+  $('cardFail').innerHTML = spec.fail.map(s=>'<li>'+s+'</li>').join('');
+  $('cardRef').textContent = spec.ref;
+  const d = meta.defectId ? activeDefects.find(x=>x.id===meta.defectId) : null;
+  const fb = $('flagBtn');
+  fb.classList.toggle('flagged', !!(d && d.found));
+  fb.textContent = (d && d.found) ? '✓ CONFIRMED DEFICIENCY' : '⚑ FLAG AS DEFICIENT';
+  $('card').classList.add('show');
+}
+
+/* ======================== per-frame ====================================== */
+const fwd = new THREE.Vector3(), right = new THREE.Vector3();
+let lastT = performance.now();
+
+function tick(){
+  const now = performance.now(); const dt = Math.min((now-lastT)/1000, 0.05); lastT = now;
+
+  // movement
+  const slow = keys['ShiftLeft']||keys['ShiftRight'];
+  const sp = (slow?0.55:1.25);
+  fwd.set(-Math.sin(yaw.v), 0, -Math.cos(yaw.v));
+  right.set(fwd.z, 0, -fwd.x);
+  let mx=0, mz=0;
+  if(keys['KeyW']||keys['ArrowUp']) mz+=1;
+  if(keys['KeyS']||keys['ArrowDown']) mz-=1;
+  if(keys['KeyA']||keys['ArrowLeft']) mx-=1;
+  if(keys['KeyD']||keys['ArrowRight']) mx+=1;
+  mz += -touchMove.y; mx += touchMove.x;
+  const mag = Math.hypot(mx,mz);
+  if(mag>0.01){
+    mx/=Math.max(1,mag); mz/=Math.max(1,mag);
+    pos.addScaledVector(fwd, mz*sp*dt);
+    pos.addScaledVector(right, mx*sp*dt);
+  }
+  // bounds
+  pos.x = Math.max(-(SKIRT_X-0.25), Math.min(SKIRT_X-0.25, pos.x));
+  pos.z = Math.max(-(SKIRT_Z-0.25), Math.min(SKIRT_Z-0.25, pos.z));
+  // pier collision
+  for(const p of pierColliders){
+    const dx = pos.x-p.x, dz = pos.z-p.z, d = Math.hypot(dx,dz);
+    if(d < p.r && d>0.0001){ const push=(p.r-d); pos.x += dx/d*push; pos.z += dz/d*push; }
+  }
+  // gentle crawl bob
+  const bob = (mag>0.01? Math.sin(now*0.011)*0.012 : 0);
+  pos.y = EYE + bob;
+
+  camera.position.copy(pos);
+  camera.rotation.set(0,0,0);
+  camera.rotateY(yaw.v);
+  camera.rotateX(pitch.v);
+
+  // hover callout (project to screen)
+  const co = $('callout');
+  if(labelsOn && hoverGroup && groupMeta[hoverGroup]){
+    const meta = groupMeta[hoverGroup];
+    const wp = hoverPoint.clone();
+    wp.project(camera);
+    if(wp.z < 1){
+      co.style.display='block';
+      co.style.left = ((wp.x*0.5+0.5)*innerWidth)+'px';
+      co.style.top  = ((-wp.y*0.5+0.5)*innerHeight)+'px';
+      const d = meta.defectId ? activeDefects.find(x=>x.id===meta.defectId) : null;
+      co.classList.toggle('flagged', !!(d && d.found));
+      co.querySelector('.tag').textContent = meta.label.toUpperCase();
+    } else co.style.display='none';
+  } else co.style.display='none';
+
+  // position readout
+  const bay = Math.round((pos.z+HALF_L)/2.44)+1;
+  $('posReadout').innerHTML = 'BAY <b>'+bay+'</b> · '+(pos.x<0?'LEFT':'RIGHT')+' SIDE · MODE <b>'+mode.toUpperCase()+'</b>'+(zone23?' · <b>ZONE II–III</b>':'');
+
+  renderer.render(scene, camera);
+}
+</script>
+</body>
+</html>

@@ -49,7 +49,14 @@ minimum_remote_package:
     preferred:
       - deck_and_stair_scope_notes
       - utility_entry_summary
-      - site_plan_or_plot_plan
+      - survey_or_site_plan
+
+# Evaluation note: rules are checked top to bottom; the first matching rule sets
+# the outcome. `appraisal_report_or_lender_property_summary` is a synthetic
+# condition — it is "missing" only when BOTH appraisal_report and
+# lender_property_summary are missing (either one satisfies the property-summary
+# requirement). `core_package_complete` is true when the minimum_remote_package
+# requirements for the case classification are all satisfied.
 
 decision_rules:
   - id: incomplete_core_package
@@ -62,13 +69,24 @@ decision_rules:
     output: request_more_evidence
     rationale: Core remote review inputs are missing.
 
+  - id: underside_photos_missing_but_obtainable
+    when:
+      all:
+        - crawlspace_or_underside_photo_set == missing
+        - underside_access_status == accessible
+    output: request_more_evidence
+    rationale: >-
+      The underside is accessible, so missing photos are a document gap that the
+      client or processor can resolve without a dispatch.
+
   - id: missing_underside_visibility
     when:
       any:
-        - crawlspace_or_underside_photo_set == missing
         - underside_access_status == inaccessible
     output: site_tech_dispatch
-    rationale: Support and anchorage are not visible enough for conservative remote review.
+    rationale: >-
+      The underside cannot be accessed, so support and anchorage cannot be made
+      visible enough for a conservative remote review without field verification.
 
   - id: ambiguous_foundation_type
     when:
@@ -80,11 +98,17 @@ decision_rules:
 
   - id: accessory_load_path_unclear
     when:
-      any:
+      all:
         - attached_accessory_present == true
+      any:
         - addition_scope_affects_load_path == possible
+        - addition_scope_affects_load_path == yes
     output: site_tech_dispatch
-    rationale: Attached improvements can invalidate a remote-only assumption.
+    rationale: >-
+      An attached improvement that may share load with the home invalidates a
+      remote-only assumption. Accessories that are well documented and clearly
+      independent (addition_scope_affects_load_path == no) may stay remote with
+      accessory language in the deliverable.
 
   - id: site_condition_red_flag
     when:

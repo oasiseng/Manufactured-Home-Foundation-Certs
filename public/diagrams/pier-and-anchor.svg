@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="system-ui, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="system-ui, -apple-system, sans-serif" role="img" aria-labelledby="paTitle">
+  <title id="paTitle">Pier and anchor system cross section: CMU block piers on concrete footing pads support the chassis I-beams; diagonal steel straps run to auger ground anchors with stabilizer plates.</title>
   <defs>
     <pattern id="soil" patternUnits="userSpaceOnUse" width="20" height="20">
       <rect width="20" height="20" fill="#8B7355"/>
@@ -9,7 +10,7 @@
   </defs>
 
   <!-- Title -->
-  <rect x="0" y="0" width="720" height="36" fill="#4A6A8A" rx="0"/>
+  <rect x="0" y="0" width="720" height="36" fill="#4A6A8A"/>
   <text x="360" y="24" text-anchor="middle" fill="#FFF" font-size="15" font-weight="700">PIER AND ANCHOR SYSTEM — Cross Section</text>
 
   <!-- Sky -->
@@ -17,10 +18,10 @@
 
   <!-- Ground -->
   <rect x="0" y="200" width="720" height="200" fill="url(#soil)"/>
-  <rect x="0" y="198" width="720" height="6" fill="#6B8E4A" rx="1"/>
+  <rect x="0" y="198" width="720" height="6" fill="#6B8E4A"/>
 
-  <!-- Grade labels -->
-  <text x="668" y="196" text-anchor="end" fill="#5A7D3A" font-size="11" font-weight="600">GRADE</text>
+  <!-- Grade label (left edge, clear of artwork) -->
+  <text x="8" y="194" fill="#5A7D3A" font-size="11" font-weight="600">GRADE</text>
 
   <!-- ═══ HOME STRUCTURE ═══ -->
   <rect x="90" y="96" width="540" height="32" fill="#E0E0E0" stroke="#999" stroke-width="1.5" rx="3"/>
@@ -37,104 +38,111 @@
   <rect x="168" y="128" width="10" height="52" fill="#4A6A8A"/>
   <rect x="162" y="126" width="22" height="4" fill="#4A6A8A" rx="1"/>
   <rect x="162" y="178" width="22" height="4" fill="#4A6A8A" rx="1"/>
-
   <!-- Center I-beam (marriage line) -->
   <rect x="355" y="128" width="10" height="52" fill="#4A6A8A"/>
   <rect x="349" y="126" width="22" height="4" fill="#4A6A8A" rx="1"/>
   <rect x="349" y="178" width="22" height="4" fill="#4A6A8A" rx="1"/>
-
   <!-- Right I-beam -->
   <rect x="532" y="128" width="10" height="52" fill="#4A6A8A"/>
   <rect x="526" y="126" width="22" height="4" fill="#4A6A8A" rx="1"/>
   <rect x="526" y="178" width="22" height="4" fill="#4A6A8A" rx="1"/>
+
+  <!-- ═══ VAPOR BARRIER ═══ -->
+  <line x1="148" y1="196" x2="570" y2="196" stroke="#6AAAD4" stroke-width="3" stroke-dasharray="10,4"/>
 
   <!-- ═══ CMU BLOCK PIERS ═══ -->
   <!-- Left pier -->
   <rect x="164" y="183" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="164" y="196" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="164" y="209" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
-  <!-- Footing pad -->
   <rect x="154" y="222" width="38" height="10" fill="#B0B0B0" stroke="#909090" stroke-width="1.2" rx="2"/>
-
   <!-- Center pier -->
   <rect x="351" y="183" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="351" y="196" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="351" y="209" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="341" y="222" width="38" height="10" fill="#B0B0B0" stroke="#909090" stroke-width="1.2" rx="2"/>
-
   <!-- Right pier -->
   <rect x="528" y="183" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="528" y="196" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="528" y="209" width="18" height="12" fill="#B0B0B0" stroke="#909090" stroke-width="0.8" rx="1"/>
   <rect x="518" y="222" width="38" height="10" fill="#B0B0B0" stroke="#909090" stroke-width="1.2" rx="2"/>
 
-  <!-- ═══ VAPOR BARRIER ═══ -->
-  <line x1="108" y1="202" x2="620" y2="202" stroke="#6AAAD4" stroke-width="3" stroke-dasharray="10,4"/>
 
   <!-- ═══ GROUND ANCHORS AND STRAPS ═══ -->
   <!-- Left anchor -->
   <line x1="138" y1="212" x2="138" y2="278" stroke="#4A6A8A" stroke-width="3.5"/>
   <polygon points="129,278 147,278 138,300" fill="#4A6A8A"/>
-  <!-- Stabilizer plate -->
   <rect x="128" y="208" width="20" height="6" fill="#3A5A7A" rx="1"/>
-  <!-- Strap -->
   <line x1="170" y1="148" x2="138" y2="212" stroke="#E53E3E" stroke-width="2.5"/>
-
   <!-- Right anchor -->
   <line x1="580" y1="212" x2="580" y2="278" stroke="#4A6A8A" stroke-width="3.5"/>
   <polygon points="571,278 589,278 580,300" fill="#4A6A8A"/>
   <rect x="570" y="208" width="20" height="6" fill="#3A5A7A" rx="1"/>
   <line x1="540" y1="148" x2="580" y2="212" stroke="#E53E3E" stroke-width="2.5"/>
 
-  <!-- ═══ LABELS WITH LEADER LINES ═══ -->
+  <!-- ═══ LABELS ═══ -->
 
-  <!-- I-beam label -->
-  <line x1="195" y1="150" x2="260" y2="140" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="264" y="137" fill="#2D3748" font-size="11" font-weight="500">Steel I-beam (chassis)</text>
+  <!-- I-beam label (sky, above floor left) -->
+  <line x1="173" y1="126" x2="196" y2="74" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="200" y="70" fill="#2D3748" font-size="11" font-weight="500">Steel I-beam (chassis)</text>
+
+  <!-- Marriage line label (sky, above floor right) -->
+  <line x1="360" y1="126" x2="412" y2="74" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="416" y="70" fill="#2D3748" font-size="11" font-weight="500">Marriage line pier below center beam</text>
+  <text x="416" y="83" fill="#718096" font-size="10">(multi-section homes)</text>
 
   <!-- CMU pier label -->
-  <line x1="184" y1="202" x2="230" y2="200" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="234" y="197" fill="#2D3748" font-size="11" font-weight="500">CMU block pier</text>
+  <line x1="184" y1="196" x2="226" y2="186" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="228" y="176" width="92" height="15" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="234" y="187" fill="#2D3748" font-size="11" font-weight="500">CMU block pier</text>
 
-  <!-- Footing pad label -->
-  <line x1="194" y1="228" x2="234" y2="244" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="238" y="248" fill="#2D3748" font-size="11" font-weight="500">Concrete footing pad</text>
+  <!-- Footing pad label (soil, backplate) -->
+  <line x1="194" y1="228" x2="232" y2="246" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="234" y="238" width="128" height="15" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="240" y="249" fill="#2D3748" font-size="11" font-weight="500">Concrete footing pad</text>
 
-  <!-- Strap label -->
-  <line x1="152" y1="175" x2="62" y2="162" stroke="#E53E3E" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="58" y="160" text-anchor="end" fill="#E53E3E" font-size="11" font-weight="600">Steel strap</text>
+  <!-- Strap label (sky, left of left strap) -->
+  <line x1="156" y1="172" x2="128" y2="152" stroke="#E53E3E" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="124" y="148" text-anchor="end" fill="#E53E3E" font-size="11" font-weight="600">Diagonal</text>
+  <text x="124" y="160" text-anchor="end" fill="#E53E3E" font-size="11" font-weight="600">steel strap</text>
 
-  <!-- Anchor label -->
-  <line x1="138" y1="268" x2="62" y2="272" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="58" y="270" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Auger ground</text>
-  <text x="58" y="283" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">anchor</text>
+  <!-- Skirting label (sky, left of left skirting, two lines) -->
+  <line x1="92" y1="142" x2="52" y2="120" stroke="#718096" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="6" y="104" fill="#718096" font-size="11">Skirting</text>
+  <text x="6" y="116" fill="#718096" font-size="10">(non-structural)</text>
 
-  <!-- Stabilizer plate label -->
-  <line x1="128" y1="210" x2="62" y2="218" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="58" y="222" text-anchor="end" fill="#2D3748" font-size="11" font-weight="500">Stabilizer plate</text>
+  <!-- Stabilizer plate label (soil, left, backplate) -->
+  <line x1="128" y1="212" x2="96" y2="226" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="6" y="218" width="90" height="15" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="12" y="229" fill="#2D3748" font-size="11" font-weight="500">Stabilizer plate</text>
 
-  <!-- Skirting label -->
-  <line x1="92" y1="162" x2="62" y2="145" stroke="#718096" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="58" y="143" text-anchor="end" fill="#718096" font-size="11">Skirting (non-structural)</text>
+  <!-- Auger anchor label (soil, left, backplate) -->
+  <line x1="136" y1="262" x2="100" y2="272" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="6" y="262" width="94" height="28" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="12" y="273" fill="#2D3748" font-size="11" font-weight="500">Auger ground</text>
+  <text x="12" y="285" fill="#2D3748" font-size="11" font-weight="500">anchor</text>
 
-  <!-- Vapor barrier label -->
-  <text x="440" y="198" fill="#6AAAD4" font-size="10" font-weight="600">Vapor barrier (6-mil poly)</text>
+  <!-- Right-side mirror labels: sidewall strap zone note (sky right) -->
+  <line x1="560" y1="166" x2="588" y2="150" stroke="#E53E3E" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="580" y="118" width="134" height="30" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="586" y="130" fill="#E53E3E" font-size="10" font-weight="600">Wind Zones II/III add</text>
+  <text x="586" y="142" fill="#E53E3E" font-size="10" font-weight="600">vertical sidewall straps</text>
 
-  <!-- Marriage line label -->
-  <line x1="372" y1="196" x2="414" y2="165" stroke="#2D3748" stroke-width="1" stroke-dasharray="3,2"/>
-  <text x="418" y="162" fill="#2D3748" font-size="11" font-weight="500">Marriage line pier</text>
-  <text x="418" y="175" fill="#718096" font-size="10">(multi-section homes)</text>
+  <!-- Vapor barrier label (on grade, backplate) -->
+  <rect x="396" y="186" width="146" height="14" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="402" y="197" fill="#4A89B8" font-size="10" font-weight="600">Vapor barrier (6-mil poly)</text>
+
+  <!-- ═══ SPACING INDICATOR (between center and right piers, backplate) ═══ -->
+  <line x1="370" y1="246" x2="517" y2="246" stroke="#FFFFFF" stroke-width="1.2"/>
+  <line x1="370" y1="242" x2="370" y2="250" stroke="#FFFFFF" stroke-width="1.2"/>
+  <line x1="517" y1="242" x2="517" y2="250" stroke="#FFFFFF" stroke-width="1.2"/>
+  <rect x="364" y="254" width="162" height="14" fill="#FFFFFF" opacity="0.85" rx="3"/>
+  <text x="444" y="265" text-anchor="middle" fill="#4A4A3A" font-size="9.5" font-weight="500">Typical pier spacing: 4–10 ft on center</text>
 
   <!-- ═══ INSPECTOR KEY POINTS ═══ -->
   <rect x="10" y="340" width="700" height="54" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5" rx="8"/>
   <text x="360" y="358" text-anchor="middle" fill="#744210" font-size="12" font-weight="700">Permanent foundation status depends on anchorage and perimeter enclosure</text>
   <text x="360" y="376" text-anchor="middle" fill="#2D3748" font-size="10">Screw-in anchors alone ≠ permanent anchorage  •  CMU piers on reinforced footings can qualify  •  Single-stack max 36 in.</text>
-
-  <!-- ═══ SPACING INDICATOR ═══ -->
-  <line x1="173" y1="240" x2="360" y2="240" stroke="#718096" stroke-width="1"/>
-  <line x1="173" y1="236" x2="173" y2="244" stroke="#718096" stroke-width="1"/>
-  <line x1="360" y1="236" x2="360" y2="244" stroke="#718096" stroke-width="1"/>
-  <text x="267" y="256" text-anchor="middle" fill="#718096" font-size="9">Typical pier spacing: 4–10 ft on center</text>
 
   <!-- Credit -->
   <text x="360" y="420" text-anchor="middle" fill="#A0AEC0" font-size="9">Educational reference — 24 CFR Part 3285 / HUD PFGMH</text>

@@ -22,6 +22,9 @@ const COLORS = {
   pass: "#38A169",
   fail: "#E53E3E",
   warn: "#D69E2E",
+  warnDark: "#744210",
+  warnLight: "#FEFCBF",
+  neutral: "#718096",
   bg: "#F7FAFC",
   card: "#FFFFFF",
   border: "#E2E8F0",
@@ -170,10 +173,10 @@ function PierAndAnchorDiagram() {
       {/* Ground surface */}
       <DiagramLabel x={650} y={175} text="Grade" anchor="end" color={COLORS.groundDark} />
 
-      {/* NOT permanent foundation callout */}
-      <rect x="180" y="320" width="340" height="28" fill={COLORS.accentLight} stroke={COLORS.accent} strokeWidth="1.5" rx="6" />
-      <text x="350" y="339" textAnchor="middle" fill={COLORS.accent} fontSize="11" fontWeight="600" fontFamily="system-ui">
-        Generally does NOT qualify as a permanent foundation (FHA)
+      {/* Permanent foundation status callout — depends on anchorage + perimeter, not the pier category */}
+      <rect x="130" y="320" width="440" height="28" fill={COLORS.warnLight} stroke={COLORS.warn} strokeWidth="1.5" rx="6" />
+      <text x="350" y="339" textAnchor="middle" fill={COLORS.warnDark} fontSize="11" fontWeight="600" fontFamily="system-ui">
+        FHA permanent foundation status depends on anchorage + perimeter enclosure
       </text>
     </svg>
   );
@@ -456,7 +459,8 @@ function BasementDiagram() {
       <rect x="105" y="335" width="490" height="12" fill={COLORS.concrete} stroke={COLORS.concreteDark} strokeWidth="1" rx="1" />
 
       {/* === BASEMENT AIR SPACE === */}
-      <rect x="105" y="100" width="490" height="235" fill={COLORS.air} opacity="0.5" />
+      {/* Solid fill — basement interior should not show the soil pattern through it */}
+      <rect x="105" y="100" width="490" height="235" fill="#EDEFF2" />
 
       {/* Headroom indicator */}
       <line x1="560" y1="100" x2="560" y2="335" stroke={COLORS.textLight} strokeWidth="1" strokeDasharray="4,3" />
@@ -611,7 +615,7 @@ function DecisionFlowchart() {
 
       {/* NO = pier */}
       <Arrow x1={200} y1={209} x2={280} y2={240} label="NO" />
-      <FlowBox x={200} y={240} text="PIER AND ANCHOR" color={COLORS.accent} w={180} h={36} />
+      <FlowBox x={200} y={240} text="PIER AND ANCHOR" color={COLORS.warn} w={180} h={36} />
 
       {/* NO gap branch */}
       <FlowBox x={430} y={165} text={["Does the home sit directly", "on a concrete slab?"]} color={COLORS.card} textColor={COLORS.text} w={250} h={44} />
@@ -628,7 +632,7 @@ function DecisionFlowchart() {
       <FlowBox x={450} y={330} text="BASEMENT" color={COLORS.pass} w={180} h={36} />
 
       <Arrow x1={610} y1={304} x2={660} y2={330} label="NO" />
-      <FlowBox x={590} y={330} text={["PROPRIETARY or", "UNCLEAR"]} color={COLORS.warn} textColor={COLORS.text} w={140} h={40} />
+      <FlowBox x={590} y={330} text={["PROPRIETARY or", "UNCLEAR"]} color={COLORS.neutral} textColor="#FFF" w={140} h={40} />
 
       {/* Verification reminder boxes */}
       <rect x="30" y="300" width="180" height="48" fill="#E8F4FD" stroke={COLORS.steel} strokeWidth="1" rx="6" />
@@ -636,10 +640,10 @@ function DecisionFlowchart() {
       <text x="120" y="332" textAnchor="middle" fill={COLORS.steel} fontSize="9" fontFamily="system-ui">If no → actually Pier + Anchor</text>
       <line x1="120" y1="276" x2="120" y2="300" stroke={COLORS.steel} strokeWidth="1" strokeDasharray="3,2" />
 
-      <rect x="200" y="300" width="180" height="48" fill="#FED7D7" stroke={COLORS.accent} strokeWidth="1" rx="6" />
-      <text x="290" y="318" textAnchor="middle" fill={COLORS.accent} fontSize="9" fontFamily="system-ui" fontWeight="600">Verify: Screw-in anchors only?</text>
-      <text x="290" y="332" textAnchor="middle" fill={COLORS.accent} fontSize="9" fontFamily="system-ui">NOT a permanent foundation</text>
-      <line x1="290" y1="276" x2="290" y2="300" stroke={COLORS.accent} strokeWidth="1" strokeDasharray="3,2" />
+      <rect x="200" y="300" width="180" height="48" fill={COLORS.warnLight} stroke={COLORS.warn} strokeWidth="1" rx="6" />
+      <text x="290" y="318" textAnchor="middle" fill={COLORS.warnDark} fontSize="9" fontFamily="system-ui" fontWeight="600">Check: What anchorage type?</text>
+      <text x="290" y="332" textAnchor="middle" fill={COLORS.warnDark} fontSize="9" fontFamily="system-ui">Screw-in only ≠ permanent</text>
+      <line x1="290" y1="276" x2="290" y2="300" stroke={COLORS.warn} strokeWidth="1" strokeDasharray="3,2" />
 
       {/* Legend */}
       <rect x="50" y="420" width="600" height="80" fill={COLORS.bg} stroke={COLORS.border} strokeWidth="1" rx="8" />
@@ -648,14 +652,14 @@ function DecisionFlowchart() {
       <rect x="80" y="455" width="14" height="14" fill={COLORS.pass} rx="3" />
       <text x="100" y="466" fill={COLORS.text} fontSize="10" fontFamily="system-ui">Generally qualifies</text>
 
-      <rect x="260" y="455" width="14" height="14" fill={COLORS.accent} rx="3" />
-      <text x="280" y="466" fill={COLORS.text} fontSize="10" fontFamily="system-ui">Generally does NOT qualify</text>
+      <rect x="260" y="455" width="14" height="14" fill={COLORS.warn} rx="3" />
+      <text x="280" y="466" fill={COLORS.text} fontSize="10" fontFamily="system-ui">Depends on anchorage + perimeter</text>
 
-      <rect x="490" y="455" width="14" height="14" fill={COLORS.warn} rx="3" />
-      <text x="510" y="466" fill={COLORS.text} fontSize="10" fontFamily="system-ui">Depends on system</text>
+      <rect x="490" y="455" width="14" height="14" fill={COLORS.neutral} rx="3" />
+      <text x="510" y="466" fill={COLORS.text} fontSize="10" fontFamily="system-ui">Requires ID first</text>
 
       <text x="350" y="490" textAnchor="middle" fill={COLORS.textLight} fontSize="9" fontFamily="system-ui">
-        Pier and anchor may qualify if enhanced with structural perimeter wall and embedded anchorage
+        Pier and block systems CAN qualify when they have rated anchorage, reinforced footings, and a perimeter enclosure
       </text>
     </svg>
   );
@@ -728,9 +732,10 @@ export default function FoundationVisualGuide() {
           {activeTab === "pier" && (
             <div>
               <PierAndAnchorDiagram />
-              <div style={{ marginTop: 12, padding: "10px 14px", background: COLORS.accentLight, borderRadius: 8, fontSize: 12, lineHeight: 1.5, color: COLORS.text }}>
-                <strong>Inspector focus:</strong> Check pier material and height (single-stack CMU ≤ 36 in., double-stack up to 80 in.). Confirm straps are tight and anchors are present at required spacing.
-                Look for pads under every pier. Screw-in soil anchors alone do not meet the FHA permanent foundation definition.
+              <div style={{ marginTop: 12, padding: "10px 14px", background: COLORS.warnLight, borderRadius: 8, fontSize: 12, lineHeight: 1.5, color: COLORS.text }}>
+                <strong>Inspector focus:</strong> Check pier material and height (single-stack CMU ≤ 36 in.; double-stack 36–67 in.; over 67 in. requires engineering per 24 CFR 3285.303(d)(1)(iv), with the FHA PFGMH App. C prescriptive grouted/reinforced alternative running to 80 in.).
+                Confirm straps are tight and anchors are present at required spacing. Look for pads under every pier, and for longitudinal ties — the most commonly missing component.
+                Screw-in soil anchors alone do not meet the FHA permanent foundation definition, but pier and block systems CAN qualify with rated anchorage, reinforced footings, and a perimeter enclosure.
               </div>
             </div>
           )}
