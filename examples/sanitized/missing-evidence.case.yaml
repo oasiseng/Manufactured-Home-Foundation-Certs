@@ -30,12 +30,12 @@ evidence:
   manufacturer_foundation_package: not_applicable
   module_configuration_summary: not_applicable
   additions_scope_notes: present
-  underside_access_status: inaccessible
+  underside_access_status: accessible
 review:
   foundation_type_identification: clear
-  anchorage_visibility: unclear
+  anchorage_visibility: partial
   attached_accessory_present: false
-  addition_scope_affects_load_path: no
+  addition_scope_affects_load_path: "no"
   visible_settlement_or_rotation: false
   drainage_or_erosion_concern: false
   flood_or_slope_concern: false
@@ -44,11 +44,12 @@ review:
   ahj_requires_site_visit: false
   notes:
     - Exterior conditions are generally clean.
-    - Underside support and anchorage are not documented.
+    - Underside is accessible but no underside photos were submitted.
+    - Anchorage is only partially visible in the foundation photo set.
 dispatch:
   outcome: request_more_evidence
   rationale:
-    - Package likely resolvable if underside photos can be obtained.
+    - Underside is accessible, so the missing photos are an obtainable document gap.
     - Need clearer support and anchorage visibility before a final path is locked.
   site_visit_priority: monitor
   assigned_to: Processor Follow-Up

@@ -35,7 +35,7 @@ review:
   foundation_type_identification: clear
   anchorage_visibility: clear
   attached_accessory_present: true
-  addition_scope_affects_load_path: no
+  addition_scope_affects_load_path: "no"
   visible_settlement_or_rotation: false
   drainage_or_erosion_concern: false
   flood_or_slope_concern: false
