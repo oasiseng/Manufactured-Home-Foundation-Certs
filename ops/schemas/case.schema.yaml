@@ -126,7 +126,7 @@ fields:
         values_ref: evidence_status
       underside_access_status:
         type: string
-        description: Example values: accessible, partially_accessible, inaccessible.
+        description: "Example values: accessible, partially_accessible, inaccessible."
   review:
     type: object
     required:
@@ -135,15 +135,15 @@ fields:
     fields:
       foundation_type_identification:
         type: string
-        description: Example values: clear, unclear.
+        description: "Example values: clear, unclear."
       anchorage_visibility:
         type: string
-        description: Example values: clear, partial, unclear.
+        description: "Example values: clear, partial, unclear."
       attached_accessory_present:
         type: boolean
       addition_scope_affects_load_path:
         type: string
-        description: Example values: no, possible, yes.
+        description: "Example values: no, possible, yes."
       visible_settlement_or_rotation:
         type: boolean
       drainage_or_erosion_concern:
